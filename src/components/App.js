@@ -18,7 +18,6 @@ class App extends React.Component {
       <div className="container">
         <SearchBar />
         <GifList />
-
       </div>
     );
   }

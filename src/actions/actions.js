@@ -8,6 +8,7 @@ const apiLimit = '&limit=';
 
 const defaultLimit = 25;
 
+// maps the received gifs to state
 export function receiveGIFS(gifs) {
   return {
     type: types.RECEIVE_GIFS, 
@@ -15,6 +16,7 @@ export function receiveGIFS(gifs) {
   };
 }
 
+// fetches gifs on search input
 export function getGifs(query, limit = defaultLimit){
 
   const encodedQuery = encodeURIComponent(query);
@@ -39,6 +41,7 @@ export function getGifs(query, limit = defaultLimit){
   }
 }
 
+// fetches trending gifs
 export function getTrending(limit = defaultLimit) {
 
   const url = `${apiUrl}trending?${apiKey}${apiLimit}`;
@@ -62,12 +65,14 @@ export function getTrending(limit = defaultLimit) {
   }
 }
 
+// fetches additional gifs
 export function getMoreGifs(url, limit){
 
   return function action(dispatch) {
     dispatch({ type: 'GET_MORE_GIFS', payload: limit })
     const request = axios({
       method: 'GET',
+      // sets the offset for additional gif fetches
       url: url + apiOffset + `${limit-defaultLimit-1}`
     });
 

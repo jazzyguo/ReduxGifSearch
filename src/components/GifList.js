@@ -24,20 +24,22 @@ class GifList extends React.Component {
   componentWillMount() { 
      window.scrollTo(0, 0)
 
+     // gets trending gifs default
      this.props.actions.getTrending();
 
      window.onscroll = () => {
+
+      // fixes searchbar to top
      	this._debouncedScroll();
      	let searchBar = document.getElementById("search-bar__container");
-
      	let fixed = searchBar.offsetTop; 
-
       (window.pageYOffset > fixed) 
     		? searchBar.classList.add("search-bar__container--fixed")
 		    : searchBar.classList.remove("search-bar__container--fixed")
 	   }
   }
 
+  // allows more gifs to load as the user scrolls near the bottom
   _scroll(){
 	var d = document.documentElement;
   	var offset = d.scrollTop + window.innerHeight;
@@ -83,7 +85,14 @@ class GifList extends React.Component {
     );
   }
 }
-
+/*
+ * @ {actions} 
+ * @ {gifs} - array of gifs to load
+ * @ {gifsLoading} - checks if gifs are loading
+ * @ {gifsLoaded} - boolean to check if gifs are loaded
+ * @ {url} - the current url being used 
+ * @ {limit} - the set limit for fetched gifs
+ */
 GifList.propTypes = {
   actions: PropTypes.object,
   gifs: PropTypes.array,

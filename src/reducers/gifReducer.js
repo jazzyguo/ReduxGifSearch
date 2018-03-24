@@ -30,7 +30,10 @@ export default function gifReducer(state = initState, action) {
 
     case RECEIVE_GIFS:
         console.log('RECEIVE_GIFS');
-        const gifsArray = state.gifs ? concatGifs(state.gifs, action.payload.data) : action.payload.data
+        // concats new fetched gifs with previous gifs
+        const gifsArray = state.gifs 
+          ? concatGifs(state.gifs, action.payload.data) 
+          : action.payload.data
     	newState = Object.assign({}, state, {
           gifs: gifsArray,
           gifsLoading: false,

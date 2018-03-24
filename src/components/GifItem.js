@@ -22,6 +22,7 @@ class GifItem extends React.Component {
  		window.addEventListener('scroll', this._checkVisible);
 	}
 
+	// checks if this element is outside the viewport - sets to loading img if it is
 	_checkVisible() {
   		const rect = this.item.getBoundingClientRect();
   		const visible = !(rect.bottom < 0 || rect.top - this.props.viewHeight >= 0);
