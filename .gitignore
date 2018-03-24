@@ -1,0 +1,7 @@
+node_modules/
+.vs_code/
+.DS_Store
+.sass-cache
+public/*.css.map
+public/*.css
+package-lock.json
