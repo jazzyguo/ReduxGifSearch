@@ -1,7 +1,6 @@
-body{
+body {
     background-color: black;
 }
-
 .gif-list {
     &__container {
         width: 100%;
@@ -9,24 +8,23 @@ body{
     &__list {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;	
+        justify-content: center;
         list-style-type: none;
     }
     &__item {
-    	padding: 5px;
+        padding: 5px;
         display: grid;
-    	img{
+        img {
             margin: auto;
-    		width: 250px;
-    	}
+            width: 250px;
+        }
     }
-    &__no-data, &__loading{
+    &__no-data, &__loading {
         text-align: center;
         font-size: 50px;
         color: white;
     }
 }
-
 .container {
     display: flex;
     flex-direction: column;
@@ -40,17 +38,17 @@ body{
         border: 1px solid black;
         border-radius: 12px;
         font-size: 20px;
-        &__container{
-        	display: flex;
-        	justify-content: center;
-        	&--fixed{
-  				position: fixed;
-  				top: 0;
-  				width: 100%;
-        	}
-    	}
-        &:focus{
-        	outline: none;
+        &__container {
+            display: flex;
+            justify-content: center;
+            &--fixed {
+                position: fixed;
+                top: 0;
+                width: 100%;
+            }
+        }
+        &:focus {
+            outline: none;
         }
     }
 }
