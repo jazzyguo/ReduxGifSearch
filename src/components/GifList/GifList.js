@@ -1,24 +1,26 @@
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../actions/actions';
+import * as actions from '../../actions/actions';
 import PropTypes from 'prop-types';
 import { forEach, bindAll, debounce} from 'lodash';
-import React from 'react';
 import GifItem from './GifItem';
+import './GifList.css';
 
-class GifList extends React.Component {  
+class GifList extends PureComponent {  
 
   constructor(props, context) {
   	super(props);
 
   	bindAll(this, [
-  		'_loadMoreGifs'
+  		'_loadMoreGifs',
+      '_renderLoader',
   	]);
 
   	this.limitIncrease = 25;
+    this.viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
 
   	this._debouncedScroll = debounce(this._scroll, 100);
-    this.viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
   }
 
   componentWillMount() { 
@@ -28,14 +30,7 @@ class GifList extends React.Component {
      this.props.actions.getTrending();
 
      window.onscroll = () => {
-
-      // fixes searchbar to top
      	this._debouncedScroll();
-     	let searchBar = document.getElementById("search-bar__container");
-     	let fixed = searchBar.offsetTop; 
-      (window.pageYOffset > fixed) 
-    		? searchBar.classList.add("search-bar__container--fixed")
-		    : searchBar.classList.remove("search-bar__container--fixed")
 	   }
   }
 
@@ -57,30 +52,47 @@ class GifList extends React.Component {
       )
     })
   }
+
+  _renderLoader(type) {
+    return (
+      <div className={`gif-list__loader${type}`}>
+        <div className="gif-loader">
+          <div className="loader__1"></div>
+          <div className="loader__2"></div>
+          <div className="loader__3"></div>
+        </div>
+      </div>
+    )
+  }
   
   _loadMoreGifs(){	
   	this.props.actions.getMoreGifs(this.props.url, this.props.limit + this.limitIncrease);
   }
 
   render() {
+    const { gifsLoaded, gifsLoading, gifs } = this.props;
     return (
       <div className="gif-list gif-list__container container">
 
-          {this.props.gifsLoaded 
+          {gifsLoaded 
           	?   
-          	(this.props.gifs.length === 0) 
+          	(gifs.length === 0) 
           		?	<div className="gif-list__no-data">
-             			No Results Found
+           			No Results Found
              		</div>
             	:   <ul className="gif-list__list">
          	   			{ this._renderGifs() }
          		    </ul>
-            :
-            <div className="gif-list__loading">
-              Loading
-            </div>
+            : undefined
           }
 
+          {!gifsLoaded &&
+            this._renderLoader(2)
+          }
+
+          {gifsLoading &&
+            this._renderLoader(1)
+          }
       </div>
     );
   }

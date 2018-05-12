@@ -1,0 +1,107 @@
+@import '../../../public/styles/global-styles';
+@import './GifListLoader';
+
+.gif-list {
+    &__container {
+        width: 100%;
+    }
+    &__list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        list-style-type: none;
+        padding: 0;
+        /* convert to grid */
+        @include breakpoint-min(xs) {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-row-gap: 15px;
+        }
+    }
+    &__item {
+        padding: 5px;
+        display: grid;
+        img {
+            margin: auto;
+            width: 95%;
+            @include breakpoint-min(md) {
+                width: 250px;
+                height: 200px;
+            }
+            object-fit: cover;
+        }
+        &-container {
+            width: 95%;
+            margin: 0 auto;
+            grid-column: span 12;
+            /* Grid col span breakpoints */
+            @include breakpoint-min(md) {
+                grid-column: span 6;
+            }
+            @include breakpoint-min(lg) {
+                grid-column: span 4;
+            }
+            @include breakpoint-min(xl) {
+                grid-column: span 3;
+            }
+            @include breakpoint-min(xxxl) {
+                grid-column: span 2;
+            }
+        }
+    }
+    &__no-data, &__loading {
+        text-align: center;
+        font-size: 50px;
+        color: white;
+    }
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    .search-bar {
+        position: absolute;
+        right: 85px;
+        bottom: 0;
+        opacity: 0;
+        width: 0;
+        text-align: center;
+        margin: 2rem auto 1rem;
+        padding: 5px 1rem;
+        border: 1px solid black;
+        border-radius: 12px;
+        font-size: 20px;
+        transition: all .2s ease-in;
+        &--active {
+            opacity: 1;
+            width: 350px;
+            transition: width .4s ease-out;
+        }
+        &__container {
+            display: flex;
+            justify-content: flex-end;
+            background-color: rgba(0, 0, 0, .3);
+            position: fixed;
+            width: 50px;
+            top: 0;
+            right: 0;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 12px;
+            transition: width .3s ease-in;
+            &--active {
+                width: 470px;
+                transition: width .3s ease-out;
+            }
+            .search-icon {
+                position: relative;
+                fill: color(secondaryColor);
+                padding: 3px;
+            }
+        }
+        &:focus {
+            outline: none;
+        }
+    }
+}

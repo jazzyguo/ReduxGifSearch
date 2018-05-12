@@ -10,6 +10,7 @@ const defaultLimit = 25;
 
 // maps the received gifs to state
 export function receiveGIFS(gifs) {
+
   return {
     type: types.RECEIVE_GIFS, 
     payload: gifs.data

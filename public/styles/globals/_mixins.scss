@@ -1,0 +1,29 @@
+
+@mixin fixedCenter() {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// creates media query
+@mixin breakpoint-min($size: '') {
+    @if ($size != '') {
+        @media (min-width: map-get($breakpoints, $size)), (min-width: map-get($breakpoints, $size)) {
+            @content;
+        }
+    }
+    @else {
+        @content;
+    }
+}
+
+// fetches colors from map
+@function color($color, $colorMod:null) {
+    @if ($colorMod !=null) {
+        @return map-get(map-get($colors, $color), $colorMod);
+    }
+    @else {
+        @return map-get($colors, $color);
+    }
+}

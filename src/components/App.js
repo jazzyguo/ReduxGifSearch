@@ -3,14 +3,13 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../actions/actions';
 import PropTypes from 'prop-types';
 import React from 'react';
-import GifList from './GifList';
-import SearchBar from './SearchBar';
+import GifList from './GifList/GifList';
+import SearchBar from './SearchBar/SearchBar';
 
 class App extends React.Component {  
 
   constructor(props, context) {
-	super(props);
-
+	 super(props);
   }
 
   render() {
