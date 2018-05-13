@@ -12,12 +12,13 @@
     border-radius: 12px;
     font-size: 20px;
     transition: all .2s ease-in;
+    padding-right: 45px;
     &--active {
         opacity: 1;
         width: 60%;
         transition: width .4s ease-out;
         @include breakpoint-min(md) {
-            width: 350px;
+            width: 315px;
         }
     }
     &__container {
@@ -43,6 +44,22 @@
             position: relative;
             fill: color(secondaryColor);
             padding: 3px;
+        }
+        .close-icon {
+            cursor: pointer;
+            position: relative;
+            left: 5px;
+            top: 5px;
+            &__container {
+                position: absolute;
+                height: 35px;
+                width: 35px;
+                top: 15px;
+                right: 90px;
+            }
+            &:hover {
+                fill: red;
+            }
         }
     }
     &:focus {

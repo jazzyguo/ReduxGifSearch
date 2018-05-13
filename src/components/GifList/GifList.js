@@ -36,9 +36,9 @@ class GifList extends PureComponent {
 
   // allows more gifs to load as the user scrolls near the bottom
   _scroll(){
-	var d = document.documentElement;
-  	var offset = d.scrollTop + window.innerHeight;
-  	var height = d.offsetHeight;
+	  const d = document.documentElement;
+  	const offset = d.scrollTop + window.innerHeight;
+  	const height = d.offsetHeight;
 
   	if (height - offset < 500) {
 		  this._loadMoreGifs();

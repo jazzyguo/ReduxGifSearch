@@ -8,11 +8,13 @@ class GifItem extends PureComponent {
 		super(props);
 
 		this.state = {
-    		visible: true
+    		visible: true,
+    		modal: false
   		}	
 
 		bindAll(this, [
-			'_checkVisible'
+			'_checkVisible',
+			'_showModal'
 		]);
 
 		this.url = this.props.gif.images.downsized.url;
@@ -37,10 +39,18 @@ class GifItem extends PureComponent {
   			: this.setState({visible});
 	}
 
+	// displays gif information with modal
+	_showModal() {
+		console.log('Modal');
+		this.setState({modal: false});
+	}
+
 	render(){
 		const { visible } = this.state;
 		return(
-			<li ref={(li) => {this.item = li}} className='gif-list__item-container'>
+			<li ref={(li) => {this.item = li}} 
+				className='gif-list__item-container'
+				onClick={ this._showModal }>
 				<div className='gif-list__item'>
 				{!visible &&
 					<Loader />

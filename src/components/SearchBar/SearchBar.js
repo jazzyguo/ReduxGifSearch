@@ -5,6 +5,7 @@ import * as actions from '../../actions/actions';
 import PropTypes from 'prop-types';
 import {bindAll, debounce} from 'lodash';
 import SearchIcon from '../Icon/SearchIcon';
+import CloseIcon from '../Icon/CloseIcon';
 import './SearchBar.css';
 
 class SearchBar extends PureComponent {  
@@ -17,7 +18,10 @@ class SearchBar extends PureComponent {
     '_fetchGifs',
     '_openSearch',
     '_closeSearch',
-    '_onFocus'
+    '_onFocus',
+    '_openMobileSearch',
+    '_clearSearch',
+    '_handleClick'
    ]);
 
    const searchFlyOut = 350;
@@ -28,22 +32,48 @@ class SearchBar extends PureComponent {
 
     this.state = {
       visible: false,
-      focused: false
+      focused: false,
+      query: false
     } 
+  }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this._handleClick);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this._handleClick);
+  }
+
+  _handleClick(event) {
+    if (!this.container.contains(event.target)) {
+      this.setState({
+        visible: false
+      }, this._closeSearch );
+    }
   }
 
   _handleSearch(e) {
     const value = e.target.value;
 
-    (value !== '') 
-      ? this._debouncedFetchGifs(value)
-      : this.props.actions.getTrending();
+    // gets trending by default when empty
+    if(value !== ''){
+      this._debouncedFetchGifs(value); 
+      this.setState({query: true});
+    } else {
+      this.props.actions.getTrending();
+      this.setState({query: false});
+    }
   }
 
   _fetchGifs(query) {
     this.props.actions.getGifs(query);
   }
 
+  /* Toggle search function buggy with 
+   * onMouseEnter / onMouseLeave
+   * so make separate functions for open/close
+   */
   _openSearch() {
     const { focused } = this.state; 
     if(!focused) {
@@ -62,32 +92,50 @@ class SearchBar extends PureComponent {
     }
   }
 
+  _clearSearch() {
+    this.input.value = '';
+    this.props.actions.getTrending();
+    this.setState({query: false});
+  }
+
   _onFocus() {
-    const visible = (this.state.focused) ? false : true; 
     this.setState({
-      focused: !this.state.focused,
-      visible
+      focused: !this.state.focused
     });
   }
 
+  _openMobileSearch() {
+
+  }
+
   render() {
-    const { visible } = this.state;
+    const { visible, query } = this.state;
 
     return (
-      <div onMouseEnter={ this._openSearch } 
+      <div ref={(container) => {this.container = container}}
+           onClick={ this._openMobileSearch }
+           onMouseEnter={ this._openSearch } 
            onMouseLeave={ this._closeSearch }
            className={visible 
                         ? 'search-bar__container search-bar__container--active'
                         : 'search-bar__container'}>
       <SearchIcon />
-        <input type='text' 
+        <input type='text'
+               ref={(input) => {this.input = input}} 
                className={visible 
                             ? 'search-bar search-bar--active'
                             : 'search-bar'}
                onChange={ this._handleSearch }
-               onFocus={this._onFocus} onBlur={this._onFocus} 
+               onFocus={ this._onFocus } 
+               onBlur={ this._onFocus }
                placeholder="Search Gifs" >
-        </input>
+        </input> 
+        {query && visible &&
+          <div className="close-icon__container"
+               onClick={ this._clearSearch }>
+            <CloseIcon />
+          </div>
+        } 
       </div>
     );
   }

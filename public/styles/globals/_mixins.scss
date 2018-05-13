@@ -1,9 +1,8 @@
 @mixin boxSize() {
     margin: auto;
-    width: 95%;
+    width: 100%;
     border: 1px solid color(borderColor);
     @include breakpoint-min(md) {
-        width: $boxWidth;
         height: $boxHeight;
     }
 }
