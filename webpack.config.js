@@ -1,3 +1,4 @@
+const autoprefixer = require('autoprefixer');
 var webpack = require('webpack');
 var config = {
     entry: __dirname + "/src/index.js",
@@ -24,5 +25,16 @@ var config = {
         historyApiFallback: true,
         inline: true
     },
+    plugins: [
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                postcss: [
+                    autoprefixer({
+                        browsers: ['last 3 version', 'ie >= 10']
+                    })
+                ]
+            }
+        }),
+    ]
 }
 module.exports = config;

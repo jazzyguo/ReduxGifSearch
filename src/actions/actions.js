@@ -1,7 +1,7 @@
 import * as types from './actionTypes';
 import axios from 'axios';
 
-const apiUrl = 'http://api.giphy.com/v1/gifs/';
+const apiUrl = 'https://api.giphy.com/v1/gifs/';
 const apiOffset = '&offset=';
 const apiKey = '&api_key=lZnfkdDQS6wkKNENzI1SOeTbF3GURqLz';
 const apiLimit = '&limit=';

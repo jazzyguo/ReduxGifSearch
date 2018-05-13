@@ -6,6 +6,7 @@
     "license": "ISC",
     "scripts": {
         "start": "npm run server & npm run sass:watch",
+        "build": "webpack -p --config ./webpack.production.config.js",
         "server": "webpack-dev-server --progress --hot",
         "sass": "node-sass-chokidar src -o src --recursive --output-style compressed",
         "sass:watch": "node-sass-chokidar src -o src --recursive --output-style compressed --watch"
@@ -14,12 +15,19 @@
         "babel-core": "^6.26.0",
         "babel-preset-es2015": "^6.24.1",
         "babel-preset-react": "^6.24.1",
+        "compression-webpack-plugin": "^1.1.11",
         "css-loader": "^0.28.4",
+        "extract-text-webpack-plugin": "^3.0.2",
+        "html-webpack-plugin": "^3.2.0",
+        "preload-webpack-plugin": "^2.3.0",
+        "script-ext-html-webpack-plugin": "^2.0.1",
+        "style-ext-html-webpack-plugin": "^3.4.7",
         "style-loader": "^0.18.2",
         "webpack": "3.6.0",
         "webpack-dev-server": "2.11.1"
     },
     "dependencies": {
+        "autoprefixer": "^8.4.1",
         "axios": "^0.18.0",
         "babel-loader": "^7.1.4",
         "lodash": "^4.17.5",

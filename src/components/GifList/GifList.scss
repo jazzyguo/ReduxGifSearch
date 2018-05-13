@@ -16,14 +16,9 @@
         padding: 5px;
         display: grid;
         img {
-            margin: auto;
-            width: 95%;
+            @include boxSize();
             height: unset;
             object-fit: cover;
-            @include breakpoint-min(md) {
-                width: 250px;
-                height: 200px;
-            }
         }
         &-container {
             width: 95%;

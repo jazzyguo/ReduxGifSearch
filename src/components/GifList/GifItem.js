@@ -40,12 +40,14 @@ class GifItem extends PureComponent {
 	render(){
 		const { visible } = this.state;
 		return(
-			<li className='gif-list__item-container'>
+			<li ref={(li) => {this.item = li}} className='gif-list__item-container'>
+				<div className='gif-list__item'>
 				{!visible &&
 					<Loader />
 				}
-	  			<div className='gif-list__item' ref={(li) => {this.item = li}}>
+				{visible &&
 	    			<img src={(visible) ? this.url : null }/>
+	  			}	  				
 	  			</div>
 	  		</li>
 		)
