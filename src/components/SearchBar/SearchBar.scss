@@ -1,0 +1,51 @@
+@import '../../../public/styles/global-styles';
+.search-bar {
+    position: absolute;
+    right: 85px;
+    bottom: 0;
+    opacity: 0;
+    width: 0;
+    text-align: center;
+    margin: 2rem auto 1rem;
+    padding: 5px 1rem;
+    border: 1px solid black;
+    border-radius: 12px;
+    font-size: 20px;
+    transition: all .2s ease-in;
+    &--active {
+        opacity: 1;
+        width: 60%;
+        transition: width .4s ease-out;
+        @include breakpoint-min(md) {
+            width: 350px;
+        }
+    }
+    &__container {
+        display: flex;
+        justify-content: flex-end;
+        background-color: rgba(0, 0, 0, .3);
+        position: fixed;
+        width: 50px;
+        top: 0;
+        right: 0;
+        padding: 5px;
+        margin: 5px;
+        border-radius: 12px;
+        transition: width .3s ease-in;
+        &--active {
+            width: 95%;
+            transition: width .3s ease-out;
+            @include breakpoint-min(md) {
+                width: 470px;
+            }
+        }
+        .search-icon {
+            position: relative;
+            fill: color(secondaryColor);
+            padding: 3px;
+        }
+    }
+    &:focus {
+        outline: none;
+    }
+}

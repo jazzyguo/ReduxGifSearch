@@ -5,6 +5,7 @@ import * as actions from '../../actions/actions';
 import PropTypes from 'prop-types';
 import {bindAll, debounce} from 'lodash';
 import SearchIcon from '../Icon/SearchIcon';
+import './SearchBar.css';
 
 class SearchBar extends PureComponent {  
 

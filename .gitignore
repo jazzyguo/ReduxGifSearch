@@ -4,4 +4,6 @@ node_modules/
 .sass-cache
 public/*.css.map
 public/*.css
+src/components/**/*.css
+src/components/**/**/.css
 package-lock.json
