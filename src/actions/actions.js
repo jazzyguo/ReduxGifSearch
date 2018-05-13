@@ -84,10 +84,12 @@ export function getMoreGifs(url, limit){
 }
 
 // opens GIF modal for more info
-export function openModal(gif) {
+// @param modalCOntent - the html frag to render inside the modal
+export function openModal(modalContent) {
+  console.log(modalContent);
   return {
     type: 'OPEN_MODAL',
-    gif
+    modalContent
   }
 }
 

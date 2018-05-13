@@ -16,7 +16,8 @@ class GifItem extends PureComponent {
 
 		bindAll(this, [
 			'_checkVisible',
-			'_showModal'
+			'_showModal',
+			'_renderModalContent'
 
 		]);
 
@@ -45,10 +46,23 @@ class GifItem extends PureComponent {
 	// Calls openModal action 
 	_showModal() {
 		const { actions, gif } = this.props;
-		actions.openModal(gif);
+		actions.openModal(this._renderModalContent(gif));
 	}
 
-	render(){
+	_renderModalContent(selectedGif) {
+		return (
+			<React.Fragment>
+				<p className="gif-title">{selectedGif.title}</p>
+				<img src={ selectedGif.images.original.url } />
+				<p className="gif-source"><strong>Source: </strong> 
+					<a href={ selectedGif.source }>{selectedGif.source}</a>
+				</p>
+				<p><strong>Rating: </strong>{selectedGif.rating}</p>
+			</React.Fragment>
+		);
+	}
+
+	render() {
 		const { visible } = this.state;
 		return(
 			<li ref={(li) => {this.item = li}} 

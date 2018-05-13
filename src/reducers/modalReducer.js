@@ -1,7 +1,7 @@
 import { OPEN_MODAL, CLOSE_MODAL } from '../actions/actionTypes';
 
 const initState =  {
-  selectedGif: null,
+  modalContent: null,
   modalIsOpen: false
 };
 
@@ -13,14 +13,14 @@ export default function modalReducer(state = initState, action) {
       console.log('OPEN_MODAL');
       newState = Object.assign({}, state, {
         modalIsOpen: true,
-        selectedGif: action.gif
+        modalContent: action.modalContent
       });
       break;
     case CLOSE_MODAL:
-      console.log('CLOSE MODAL');
+      console.log('CLOSE_MODAL');
       newState = Object.assign({}, state, {
         modalIsOpen: false,
-        selectedGif: null
+        modalContent: null
       });
       break;
     default:

@@ -4,35 +4,55 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/actions';
 import PropTypes from 'prop-types';
 import { bindAll } from 'lodash';
+import CloseIcon from '../Icon/CloseIcon';
 import './Modal.css';
  
 class Modal extends PureComponent {
 	constructor(props) {
 		super(props);
-	
 
 		bindAll(this, [
-		
+		  '_handleClick'
 		]);
-	}
+	}	
+
+	componentDidMount() {
+    	document.addEventListener('mousedown', this._handleClick);
+  	}
+
+  	componentWillUnmount() {
+    	document.removeEventListener('mousedown', this._handleClick);
+  	}
+
+  	_handleClick(event) {
+    	if (!this.modal.contains(event.target)) {
+    		this.props.actions.closeModal();
+    	}
+  	}
 
 	render() {
-
-	return(
-		<div className="modal">
-			MODAL
-		</div>
+		const { modalContent } = this.props;
+		return(
+			<div className="modal__container">
+				<CloseIcon />
+				<div className="modal"
+					 ref={(modal) => {this.modal = modal}}>
+					 	{ modalContent }
+				</div>
+			</div>
 		)
 	}
 }
-
+/*
+ * @ {modalContent} - the content to render within the modal 
+ */
 Modal.propTypes = {
-  selectedGif: PropTypes.object
+  modalContent: PropTypes.object
 };
 
 function mapStateToProps(state) {
   return {
-    selectedGif: state.modal.selectedGif
+    modalContent: state.modal.modalContent
   };
 }
 
