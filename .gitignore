@@ -6,4 +6,6 @@ public/*.css.map
 public/*.css
 src/components/**/*.css
 src/components/**/**/.css
+public/bundle.js
+public/bungle.js.gz
 package-lock.json
