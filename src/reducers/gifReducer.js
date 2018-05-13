@@ -1,4 +1,6 @@
-import {GET_TRENDING, GET_GIFS, RECEIVE_GIFS, GET_API_URL, GET_MORE_GIFS, GET_LIMIT} from '../actions/actionTypes';
+import {GET_TRENDING, GET_GIFS, 
+        RECEIVE_GIFS, GET_API_URL, 
+        GET_MORE_GIFS, GET_LIMIT} from '../actions/actionTypes';
 
 const initState = {
 	gifs: [],
@@ -56,7 +58,8 @@ export default function gifReducer(state = initState, action) {
     case GET_MORE_GIFS:
     	console.log('GET_MORE_GIFS');
     	newState = Object.assign({}, state, {
-          limit: action.payload
+          limit: action.payload,
+          gifsLoading: true
         });
         break;
 

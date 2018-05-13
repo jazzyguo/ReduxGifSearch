@@ -4,4 +4,8 @@ node_modules/
 .sass-cache
 public/*.css.map
 public/*.css
+src/components/**/*.css
+src/components/**/**/.css
+public/bundle.js
+public/bundle.js.gz
 package-lock.json

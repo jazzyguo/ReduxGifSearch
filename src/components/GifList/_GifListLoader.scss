@@ -1,0 +1,65 @@
+.gif-list__loader1 {
+    position: fixed;
+    width: 70px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 40px;
+    margin: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 12px;
+    .gif-loader {
+        width: 70px;
+        margin: 10px auto;
+        text-align: center;
+        div {
+            width: 18px;
+            height: 18px;
+            background-color: color(secondaryColor);
+            border-radius: 100%;
+            display: inline-block;
+            animation: loading1 .5s infinite ease-in-out both;
+        }
+        &__1 {
+            animation-delay: -0.16s;
+        }
+        &__2 {
+            animation-delay: -0.08s;
+        }
+    }
+    @keyframes loading1 {
+        0%, 80%, 100% {
+            -webkit-transform: scale(0);
+            transform: scale(0);
+        }
+        50% {
+            -webkit-transform: scale(.8);
+            transform: scale(.8);
+        }
+    }
+}
+.gif-list__loader2 {
+    @include fixedCenter();
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    &:after {
+        content: " ";
+        display: block;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 12px solid color(secondaryColor);
+        border-color: color(secondaryColor) transparent color(secondaryColor) transparent;
+        animation: spin .7s linear infinite;
+    }
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

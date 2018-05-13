@@ -1,0 +1,59 @@
+@import '../../../public/styles/global-styles';
+@import './GifListLoader';
+.gif-list {
+    &__container {
+        width: 100%;
+    }
+    &__list {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-auto-rows: minmax($boxHeight, auto);;
+        grid-row-gap: 15px;
+        justify-content: center;
+        list-style-type: none;
+        padding: 0;
+    }
+    &__item {
+        padding: 5px;
+        display: grid;
+        img {
+            @include boxSize();
+            height: unset;
+            object-fit: cover;
+            &:hover{
+                background-color: black;
+                object-fit: contain;
+            }
+        }
+        &-container {
+            width: 95%;
+            margin: 15px auto;
+            grid-column: span 12;
+            /* Grid col span breakpoints */
+            @include breakpoint-min(md) {
+                margin: auto;
+                grid-column: span 6;
+            }
+            @include breakpoint-min(lg) {
+                grid-column: span 4;
+            }
+            @include breakpoint-min(xl) {
+                grid-column: span 3;
+            }
+            @include breakpoint-min(xxxl) {
+                grid-column: span 2;
+            }
+        }
+    }
+    &__no-data, &__loading {
+        text-align: center;
+        font-size: 50px;
+        color: white;
+    }
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
