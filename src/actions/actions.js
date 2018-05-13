@@ -83,3 +83,17 @@ export function getMoreGifs(url, limit){
   }
 }
 
+// opens GIF modal for more info
+export function openModal(gif) {
+  return {
+    type: 'OPEN_MODAL',
+    gif
+  }
+}
+
+// closes GIF modal
+export function closeModal() {
+  return {
+    type: 'CLOSE_MODAL'
+  }
+}  

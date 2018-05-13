@@ -16,6 +16,7 @@
     &__item {
         padding: 5px;
         display: grid;
+        cursor: pointer;
         img {
             @include boxSize();
             height: unset;

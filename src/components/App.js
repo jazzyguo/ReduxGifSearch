@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import GifList from './GifList/GifList';
 import SearchBar from './SearchBar/SearchBar';
+import Modal from './Modal/Modal';
 
 class App extends React.Component {  
 
@@ -17,6 +18,9 @@ class App extends React.Component {
       <div className="container">
         <SearchBar />
         <GifList />
+        {this.props.modalIsOpen &&
+          <Modal />
+        }
       </div>
     );
   }
@@ -25,11 +29,13 @@ class App extends React.Component {
 GifList.propTypes = {
   actions: PropTypes.object,
   data: PropTypes.object,
+  modalIsOpen: PropTypes.bool
 };
 
 function mapStateToProps(state) {
   return {
-    data: state.gifs
+    data: state.gifs,
+    modalIsOpen: state.modal.modalIsOpen
   };
 }
 

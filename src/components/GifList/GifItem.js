@@ -1,20 +1,23 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { bindAll, debounce } from 'lodash';
 import Loader from '../Loader/Loader';
+import * as actions from '../../actions/actions';
 
 class GifItem extends PureComponent {
 	constructor(props, context) {
 		super(props);
 
 		this.state = {
-    		visible: true,
-    		modal: false
+    		visible: true
   		}	
 
 		bindAll(this, [
 			'_checkVisible',
 			'_showModal'
+
 		]);
 
 		this.url = this.props.gif.images.downsized.url;
@@ -39,10 +42,10 @@ class GifItem extends PureComponent {
   			: this.setState({visible});
 	}
 
-	// displays gif information with modal
+	// Calls openModal action 
 	_showModal() {
-		console.log('Modal');
-		this.setState({modal: false});
+		const { actions, gif } = this.props;
+		actions.openModal(gif);
 	}
 
 	render(){
@@ -64,11 +67,26 @@ class GifItem extends PureComponent {
 	}
 }
 
-export default GifItem;
-
 /*
  * @ {gif} - object containing relative gif data
+ * @ {gif} - function when li is clicked
  */
 GifItem.propTypes = {
-  gif: PropTypes.object,
+  actions: PropTypes.object,
+  gif: PropTypes.object
 };
+
+function mapStateToProps(state) {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GifItem);

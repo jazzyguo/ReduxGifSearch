@@ -14,7 +14,7 @@ class GifList extends PureComponent {
 
   	bindAll(this, [
   		'_loadMoreGifs',
-      '_renderLoader',
+      '_renderLoader'
   	]);
 
   	this.limitIncrease = 25;
@@ -48,7 +48,8 @@ class GifList extends PureComponent {
   _renderGifs() {
   	return this.props.gifs.map((gif, key) => {
       return (
-      	<GifItem gif={gif} key={key} viewHeight={this.viewHeight}/>
+      	<GifItem gif={gif} key={key} 
+                 viewHeight={ this.viewHeight }/>
       )
     })
   }
