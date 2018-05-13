@@ -9,3 +9,5 @@ src/components/**/**/.css
 public/bundle.js
 public/bundle.js.gz
 package-lock.json
+firebase.json
+.firebaserc
