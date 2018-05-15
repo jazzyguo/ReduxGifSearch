@@ -14,13 +14,17 @@ class App extends React.Component {
   }
 
   render() {
+    const { modalIsOpen, infiniteScroll } = this.props;
     return (
       <div className="container">
         <SearchBar />
         <GifList />
-        {this.props.modalIsOpen &&
+        {modalIsOpen &&
           <Modal />
         }
+        {/*{infiniteScroll &&
+          <Pagination />
+        }*/}
       </div>
     );
   }
@@ -29,17 +33,19 @@ class App extends React.Component {
 GifList.propTypes = {
   actions: PropTypes.object,
   data: PropTypes.object,
-  modalIsOpen: PropTypes.bool
+  modalIsOpen: PropTypes.bool,
+  infiniteScroll: PropTypes.bool
 };
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     data: state.gifs,
-    modalIsOpen: state.modal.modalIsOpen
+    modalIsOpen: state.modal.modalIsOpen,
+    infiniteScroll: state.gifs.infiniteScroll
   };
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(actions, dispatch)
   };

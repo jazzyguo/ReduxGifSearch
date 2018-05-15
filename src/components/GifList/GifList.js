@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../../actions/actions';
+import { getTrending, getMoreGifs, 
+         toggleInfiniteScrolling } from '../../actions/actions';
 import PropTypes from 'prop-types';
 import { forEach, bindAll, debounce} from 'lodash';
 import GifItem from './GifItem';
@@ -24,25 +25,32 @@ class GifList extends PureComponent {
   }
 
   componentWillMount() { 
-     window.scrollTo(0, 0)
+    const { actions } = this.props;
 
-     // gets trending gifs default
-     this.props.actions.getTrending();
+    window.scrollTo(0, 0)
 
-     window.onscroll = () => {
+    // gets trending gifs default
+    actions.getTrending();
+
+    // infinite scrolling is true on default
+    actions.toggleInfiniteScrolling();
+
+    window.onscroll = () => {
      	this._debouncedScroll();
-	   }
+	  }
   }
 
   // allows more gifs to load as the user scrolls near the bottom
   _scroll(){
-	  const d = document.documentElement;
-  	const offset = d.scrollTop + window.innerHeight;
-  	const height = d.offsetHeight;
+    if(this.props.infiniteScroll) {
+  	  const d = document.documentElement;
+    	const offset = d.scrollTop + window.innerHeight;
+    	const height = d.offsetHeight;
 
-  	if (height - offset < 500) {
-		  this._loadMoreGifs();
-  	}
+    	if (height - offset < 500) {
+  		  this._loadMoreGifs();
+    	}
+    }
   }
 
   _renderGifs() {
@@ -65,7 +73,7 @@ class GifList extends PureComponent {
       </div>
     )
   }
-  
+
   _loadMoreGifs(){	
   	this.props.actions.getMoreGifs(this.props.url, this.props.limit + this.limitIncrease);
   }
@@ -114,6 +122,7 @@ class GifList extends PureComponent {
  * @ {limit} - the set limit for fetched gifs
  * @ {pagination} - pagination data
  * @ {query} - the current search query
+ * @ {infiniteScroll} - toggle for infinite scrolling
  */
 GifList.propTypes = {
   actions: PropTypes.object,
@@ -123,10 +132,11 @@ GifList.propTypes = {
   url: PropTypes.string,
   limit: PropTypes.number,
   pagination: PropTypes.object,
-  query: PropTypes.string
+  query: PropTypes.string,
+  infiniteScroll: PropTypes.bool
 };
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     gifs: state.gifs.gifs,
     gifsLoading: state.gifs.gifsLoading,
@@ -134,13 +144,18 @@ function mapStateToProps(state) {
     url: state.gifs.url,
     limit: state.gifs.limit,
     pagination: state.gifs.pagination,
-    query: state.gifs.query
+    query: state.gifs.query,
+    infiniteScroll: state.gifs.infiniteScroll
   };
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators({
+      getTrending,
+      getMoreGifs,
+      toggleInfiniteScrolling
+    }, dispatch)
   };
 }
 

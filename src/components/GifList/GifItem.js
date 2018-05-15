@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { bindAll, debounce } from 'lodash';
 import Loader from '../Loader/Loader';
-import * as actions from '../../actions/actions';
+import { openModal} from '../../actions/actions';
 
 class GifItem extends PureComponent {
 	constructor(props, context) {
@@ -45,8 +45,8 @@ class GifItem extends PureComponent {
 
 	// Calls openModal action 
 	_showModal() {
-		const { actions, gif } = this.props;
-		actions.openModal(this._renderModalContent(gif));
+		const { openModal, gif } = this.props;
+		openModal(this._renderModalContent(gif));
 	}
 
 	_renderModalContent(selectedGif) {
@@ -86,21 +86,17 @@ class GifItem extends PureComponent {
  * @ {gif} - function when li is clicked
  */
 GifItem.propTypes = {
-  actions: PropTypes.object,
+  openModal: PropTypes.func,
   gif: PropTypes.object
 };
 
-function mapStateToProps(state) {
-  return {};
-}
-
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    openModal: bindActionCreators(openModal, dispatch)
   };
 }
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(GifItem);

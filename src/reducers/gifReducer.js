@@ -1,7 +1,8 @@
 import {GET_TRENDING, GET_GIFS, 
         RECEIVE_GIFS, GET_API_URL, 
         GET_MORE_GIFS, GET_LIMIT,
-        GET_QUERY} from '../actions/actionTypes';
+        GET_QUERY, TOGGLE_INFINITE, 
+        GET_INFINITE} from '../actions/actionTypes';
 
 const initState = {
 	gifs: [],
@@ -10,7 +11,8 @@ const initState = {
 	url: "",
 	limit: null,
   pagination: null,
-  query: ""
+  query: "",
+  infiniteScroll: true
 };
 
 export default function gifReducer(state = initState, action) {
@@ -22,7 +24,6 @@ export default function gifReducer(state = initState, action) {
     	newState = Object.assign({}, state, {
           gifsLoading: true,
           limit: 25,
-
       });
     	return action;
 
@@ -71,6 +72,19 @@ export default function gifReducer(state = initState, action) {
     	newState = Object.assign({}, state, {
           limit: action.payload,
           gifsLoading: true
+      });
+      break;
+
+    case TOGGLE_INFINITE:
+      console.log('TOGGLE INFINITE');
+      newState = Object.assign({}, state, {
+          infiniteScroll: action.bool,
+      });
+      break;
+
+    case GET_INFINITE:
+      newState = Object.assign({}, state, {
+          infiniteScroll: action.payload
       });
       break;
 

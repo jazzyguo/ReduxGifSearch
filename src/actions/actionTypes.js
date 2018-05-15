@@ -10,3 +10,7 @@ export const GET_QUERY = 'GET_QUERY';
 // MODAL
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
+
+// INFINITE SCROLLING
+export const TOGGLE_INFINITE = 'TOGGLE_INFINITE';
+export const GET_INFINITE = 'GET_INFINITE';
