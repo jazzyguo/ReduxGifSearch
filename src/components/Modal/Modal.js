@@ -25,7 +25,6 @@ class Modal extends PureComponent {
   	}
 
   	_handleClick(event) {
-  		console.log(event);
     	if (!this.modal.contains(event.target) 
     		|| event.target.classList.contains('close-icon')) {
     		this.props.actions.closeModal();
