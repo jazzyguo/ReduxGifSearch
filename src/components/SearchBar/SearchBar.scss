@@ -13,14 +13,13 @@
     font-size: 20px;
     transition: width .2s ease-in;
     padding-right: 45px;
-    @include breakpoint-min(md) {}
     &--active {
         opacity: 1;
         width: calc(200px - 61px);
         transition: opacity .4s ease-out;
         right: 0;
         left: 0;
-        bottom: -10px;
+        bottom: -12px;
         @include breakpoint-min(xs) {
             width: calc(260px - 61px);
         }
@@ -66,6 +65,7 @@
             height: 40px;
             left: 50%;
             transform: translateX(-50%);
+            z-index: -1;
             @include breakpoint-min(md) {
                 left: 155px;
             }

@@ -107,10 +107,7 @@ class SearchBar extends PureComponent {
 
   // **TODO create mobile modal - has top search for now
   _openMobileSearch() {
-    // without setting focused to false, 
-    // the input gets focused on click somehow
-    this.setState({focused: false}, 
-      this._openSearch );
+    this._openSearch();
   }
 
   render() {
@@ -132,7 +129,7 @@ class SearchBar extends PureComponent {
                               ? 'search-bar search-bar--active'
                               : 'search-bar'}
                  onChange={ this._handleSearch }
-                 onFocus={ this._onFocus } 
+                 onFocus={ this._onFocus }
                  onBlur={ this._onFocus }
                  placeholder="Search Gifs" >
           </input> 
