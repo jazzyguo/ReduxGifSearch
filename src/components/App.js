@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../actions/actions';
+import { toggleInfinite } from '../actions/actions';
 import PropTypes from 'prop-types';
 import React from 'react';
 import GifList from './GifList/GifList';
@@ -41,13 +41,15 @@ const mapStateToProps = (state) => {
   return {
     data: state.gifs,
     modalIsOpen: state.modal.modalIsOpen,
-    infiniteScroll: state.gifs.infiniteScroll
+    infiniteScroll: state.infinite.infiniteScroll
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators({
+      toggleInfinite
+    }, dispatch)
   };
 }
 

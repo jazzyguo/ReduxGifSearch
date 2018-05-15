@@ -44,10 +44,6 @@ export function getGifs(query, limit = defaultLimit){
     // sets query to display with results info
     }).then(() => {
         dispatch({ type: 'GET_QUERY', payload: query });
-    }).then(() => {
-        (infiniteScroll)
-          ? dispatch({ type: 'GET_INFINITE', payload: true })
-          : undefined;
     });
   }
 }
@@ -67,7 +63,7 @@ export function getTrending(limit = defaultLimit) {
     
     return request.then(
       response => dispatch(receiveGIFS(response)),
-      
+
     // retain states wiped by action
     ).then(() => {
         dispatch({ type: 'GET_API_URL', payload: url });
@@ -76,10 +72,6 @@ export function getTrending(limit = defaultLimit) {
         //resets query to null for trending
     }).then(() => {
         dispatch({ type: 'GET_QUERY', payload: "" });
-    }).then(() => {
-        (infiniteScroll)
-          ? dispatch({ type: 'GET_INFINITE', payload: true })
-          : undefined;
     });
   }
 }
@@ -118,11 +110,10 @@ export function closeModal() {
 }  
 
 // toggles infinite scrolling 
-export function toggleInfiniteScrolling() {
-  infiniteScroll = !infiniteScroll;
+export function toggleInfinite(bool) {
 
   return {
     type: 'TOGGLE_INFINITE',
-    bool: infiniteScroll
+    bool
   }
 }

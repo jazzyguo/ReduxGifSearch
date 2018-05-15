@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getTrending, getMoreGifs, 
-         toggleInfiniteScrolling } from '../../actions/actions';
+import { getTrending, getMoreGifs } from '../../actions/actions';
 import PropTypes from 'prop-types';
 import { forEach, bindAll, debounce} from 'lodash';
 import GifItem from './GifItem';
@@ -31,9 +30,6 @@ class GifList extends PureComponent {
 
     // gets trending gifs default
     actions.getTrending();
-
-    // infinite scrolling is true on default
-    actions.toggleInfiniteScrolling();
 
     window.onscroll = () => {
      	this._debouncedScroll();
@@ -145,7 +141,7 @@ const mapStateToProps = (state) => {
     limit: state.gifs.limit,
     pagination: state.gifs.pagination,
     query: state.gifs.query,
-    infiniteScroll: state.gifs.infiniteScroll
+    infiniteScroll: state.infinite.infiniteScroll
   };
 }
 
@@ -153,8 +149,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators({
       getTrending,
-      getMoreGifs,
-      toggleInfiniteScrolling
+      getMoreGifs
     }, dispatch)
   };
 }
