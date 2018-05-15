@@ -76,21 +76,21 @@ class GifList extends PureComponent {
     return (
       <div className="gif-list gif-list__container container">
 
-          {gifsLoaded 
-          	?   
-          	(gifs.length === 0) 
-          		?	<div className="gif-list__no-data">
-           			No Results Found
-             		</div>
-            	:   <ul className="gif-list__list">
-                  {pagination &&
-                    <div className="results">
-                      {pagination.total_count} Results in 
-                      {(query) ? ` "${query}"` : ' Trending'}
-                    </div>
-                  }
-         	   			{ this._renderGifs() }
-         		    </ul>
+          {gifsLoaded ?   
+            (gifs.length === 0) 
+            ?	<div className="gif-list__no-data">
+                No Results Found
+              </div>
+            :   
+            <ul className="gif-list__list">
+              {pagination &&
+                <div className="results">
+                  {pagination.total_count} Results in 
+                    {(query) ? ` "${query}"` : ' Trending'}
+                </div>
+              }
+              { this._renderGifs() }
+            </ul>
             : undefined
           }
 
