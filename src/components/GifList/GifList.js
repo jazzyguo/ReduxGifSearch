@@ -71,7 +71,8 @@ class GifList extends PureComponent {
   }
 
   render() {
-    const { gifsLoaded, gifsLoading, gifs } = this.props;
+    const { gifsLoaded, gifsLoading, gifs, query, pagination } = this.props;
+    
     return (
       <div className="gif-list gif-list__container container">
 
@@ -82,6 +83,12 @@ class GifList extends PureComponent {
            			No Results Found
              		</div>
             	:   <ul className="gif-list__list">
+                  {pagination &&
+                    <div className="results">
+                      {pagination.total_count} Results in 
+                      {(query) ? ` "${query}"` : ' Trending'}
+                    </div>
+                  }
          	   			{ this._renderGifs() }
          		    </ul>
             : undefined
@@ -105,6 +112,8 @@ class GifList extends PureComponent {
  * @ {gifsLoaded} - boolean to check if gifs are loaded
  * @ {url} - the current url being used 
  * @ {limit} - the set limit for fetched gifs
+ * @ {pagination} - pagination data
+ * @ {query} - the current search query
  */
 GifList.propTypes = {
   actions: PropTypes.object,
@@ -112,7 +121,9 @@ GifList.propTypes = {
   gifsLoading: PropTypes.bool,
   gifsLoaded: PropTypes.bool,
   url: PropTypes.string,
-  limit: PropTypes.number
+  limit: PropTypes.number,
+  pagination: PropTypes.object,
+  query: PropTypes.string
 };
 
 function mapStateToProps(state) {
@@ -121,7 +132,9 @@ function mapStateToProps(state) {
     gifsLoading: state.gifs.gifsLoading,
     gifsLoaded: state.gifs.gifsLoaded,
     url: state.gifs.url,
-    limit: state.gifs.limit
+    limit: state.gifs.limit,
+    pagination: state.gifs.pagination,
+    query: state.gifs.query
   };
 }
 

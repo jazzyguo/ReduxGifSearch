@@ -5,6 +5,7 @@ export const GET_MORE_GIFS = 'GET_MORE_GIFS';
 export const RECEIVE_GIFS = 'RECEIVE_GIFS';
 export const GET_API_URL = 'GET_API_URL';
 export const GET_LIMIT = 'GET_LIMIT';
+export const GET_QUERY = 'GET_QUERY';
 
 // MODAL
 export const OPEN_MODAL = 'OPEN_MODAL';

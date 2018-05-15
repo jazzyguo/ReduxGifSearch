@@ -57,7 +57,7 @@ class GifItem extends PureComponent {
 				<p className="gif-source"><strong>Source: </strong> 
 					<a href={ selectedGif.source }>{selectedGif.source}</a>
 				</p>
-				<p><strong>Rating: </strong>{selectedGif.rating}</p>
+				<p><strong>Rating: </strong>{selectedGif.rating.toUpperCase()}</p>
 			</React.Fragment>
 		);
 	}

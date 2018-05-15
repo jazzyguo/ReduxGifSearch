@@ -25,7 +25,9 @@ class Modal extends PureComponent {
   	}
 
   	_handleClick(event) {
-    	if (!this.modal.contains(event.target)) {
+  		console.log(event);
+    	if (!this.modal.contains(event.target) 
+    		|| event.target.classList.contains('close-icon')) {
     		this.props.actions.closeModal();
     	}
   	}
@@ -34,9 +36,9 @@ class Modal extends PureComponent {
 		const { modalContent } = this.props;
 		return(
 			<div className="modal__container">
-				<CloseIcon />
 				<div className="modal"
 					 ref={(modal) => {this.modal = modal}}>
+					 <CloseIcon onClick={ this._handleClick }/>
 					 	{ modalContent }
 				</div>
 			</div>

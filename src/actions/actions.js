@@ -38,6 +38,9 @@ export function getGifs(query, limit = defaultLimit){
         dispatch({ type: 'GET_API_URL', payload: url });
     }).then(() => {
         dispatch({ type: 'GET_LIMIT', payload: limit });
+    // sets query to display with results info
+    }).then(() => {
+        dispatch({ type: 'GET_QUERY', payload: query });
     });
   }
 }
@@ -62,6 +65,9 @@ export function getTrending(limit = defaultLimit) {
         dispatch({ type: 'GET_API_URL', payload: url });
     }).then(() => {
         dispatch({ type: 'GET_LIMIT', payload: limit });
+        //resets query to null for trending
+    }).then(() => {
+        dispatch({ type: 'GET_QUERY', payload: "" });
     });
   }
 }
@@ -86,7 +92,6 @@ export function getMoreGifs(url, limit){
 // opens GIF modal for more info
 // @param modalCOntent - the html frag to render inside the modal
 export function openModal(modalContent) {
-  console.log(modalContent);
   return {
     type: 'OPEN_MODAL',
     modalContent

@@ -28,6 +28,7 @@ class SearchBar extends PureComponent {
 
    this._openSearch = debounce(this._openSearch, searchFlyOut);
    this._closeSearch = debounce(this._closeSearch, searchFlyOut);
+   this._getTrending = debounce(props.actions.getTrending, 500);
    this._debouncedFetchGifs = debounce(this._fetchGifs, 500);
 
     this.state = {
@@ -61,7 +62,7 @@ class SearchBar extends PureComponent {
       this._debouncedFetchGifs(value); 
       this.setState({query: true});
     } else {
-      this.props.actions.getTrending();
+      this._getTrending();
       this.setState({query: false});
     }
   }
@@ -104,8 +105,12 @@ class SearchBar extends PureComponent {
     });
   }
 
+  // **TODO create mobile modal - has top search for now
   _openMobileSearch() {
-
+    // without setting focused to false, 
+    // the input gets focused on click somehow
+    this.setState({focused: false}, 
+      this._openSearch );
   }
 
   render() {
@@ -120,22 +125,24 @@ class SearchBar extends PureComponent {
                         ? 'search-bar__container search-bar__container--active'
                         : 'search-bar__container'}>
       <SearchIcon />
-        <input type='text'
-               ref={(input) => {this.input = input}} 
-               className={visible 
-                            ? 'search-bar search-bar--active'
-                            : 'search-bar'}
-               onChange={ this._handleSearch }
-               onFocus={ this._onFocus } 
-               onBlur={ this._onFocus }
-               placeholder="Search Gifs" >
-        </input> 
-        {query && visible &&
-          <div className="close-icon__container"
-               onClick={ this._clearSearch }>
-            <CloseIcon />
-          </div>
-        } 
+        <div className="input-container">
+          <input type='text'
+                 ref={(input) => {this.input = input}} 
+                 className={visible 
+                              ? 'search-bar search-bar--active'
+                              : 'search-bar'}
+                 onChange={ this._handleSearch }
+                 onFocus={ this._onFocus } 
+                 onBlur={ this._onFocus }
+                 placeholder="Search Gifs" >
+          </input> 
+          {query && visible &&
+            <div className="close-icon__container"
+                 onClick={ this._clearSearch }>
+              <CloseIcon />
+            </div>
+          } 
+        </div>
       </div>
     );
   }
