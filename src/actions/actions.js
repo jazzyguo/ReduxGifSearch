@@ -10,7 +10,8 @@ const defaultLimit = 25;
 
 let infiniteScroll = false;
 
-// maps the received gifs to state
+/* maps the received gifs to state
+ */
 export function receiveGIFS(gifs) {
 
   return {
@@ -19,7 +20,8 @@ export function receiveGIFS(gifs) {
   };
 }
 
-// fetches gifs on search input
+/* fetches gifs on search input
+ */
 export function getGifs(query, limit = defaultLimit){
 
   const encodedQuery = encodeURIComponent(query);
@@ -48,7 +50,8 @@ export function getGifs(query, limit = defaultLimit){
   }
 }
 
-// fetches trending gifs
+/* fetches trending gifs
+ */
 export function getTrending(limit = defaultLimit) {
 
   const url = `${apiUrl}trending?${apiKey}${apiLimit}`;
@@ -76,7 +79,8 @@ export function getTrending(limit = defaultLimit) {
   }
 }
 
-// fetches additional gifs
+/* fetches additional gifs
+ */
 export function getMoreGifs(url, limit){
 
   return function action(dispatch) {
@@ -93,8 +97,9 @@ export function getMoreGifs(url, limit){
   }
 }
 
-// opens GIF modal for more info
-// @param modalCOntent - the html frag to render inside the modal
+/* opens GIF modal for more info
+ * @param modalCOntent - the html frag to render inside the modal
+ */
 export function openModal(modalContent) {
   return {
     type: 'OPEN_MODAL',
@@ -109,7 +114,9 @@ export function closeModal() {
   }
 }  
 
-// toggles infinite scrolling 
+/* toggles pagination - off by default
+ * infinite scrolling is used otherwise
+ */ 
 export function togglePagination(bool) {
 
   return {

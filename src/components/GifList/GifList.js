@@ -117,9 +117,10 @@ class GifList extends PureComponent {
  * @ {gifsLoaded} - boolean to check if gifs are loaded
  * @ {url} - the current url being used 
  * @ {limit} - the set limit for fetched gifs
- * @ {pagination} - pagination data
+ * @ {paginationData} - object containing pagination info
  * @ {query} - the current search query
  * @ {infiniteScroll} - toggle for infinite scrolling
+ * @ {pagination} - boolean flag for pagination on/off
  */
 GifList.propTypes = {
   actions: PropTypes.object,
