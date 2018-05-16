@@ -9,7 +9,7 @@ const initState = {
 	gifsLoaded: false,
 	url: "",
 	limit: null,
-  pagination: null,
+  paginationData: null,
   query: ""
 };
 
@@ -43,7 +43,7 @@ export default function gifReducer(state = initState, action) {
           gifs: gifsArray,
           gifsLoading: false,
           gifsLoaded: true,
-          pagination: action.payload.pagination
+          paginationData: action.payload.pagination
         });
     	break;
 

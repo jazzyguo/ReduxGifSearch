@@ -38,7 +38,8 @@ class GifList extends PureComponent {
 
   // allows more gifs to load as the user scrolls near the bottom
   _scroll(){
-    if(this.props.infiniteScroll) {
+    // infinite scroll is on if pagination is off
+    if(!this.props.pagination) {
   	  const d = document.documentElement;
     	const offset = d.scrollTop + window.innerHeight;
     	const height = d.offsetHeight;
@@ -75,7 +76,7 @@ class GifList extends PureComponent {
   }
 
   render() {
-    const { gifsLoaded, gifsLoading, gifs, query, pagination } = this.props;
+    const { gifsLoaded, gifsLoading, gifs, query, paginationData } = this.props;
     
     return (
       <div className="gif-list gif-list__container container">
@@ -87,9 +88,9 @@ class GifList extends PureComponent {
               </div>
             :   
             <ul className="gif-list__list">
-              {pagination &&
+              {paginationData &&
                 <div className="results">
-                  {pagination.total_count} Results in 
+                  {paginationData.total_count} Results in 
                     {(query) ? ` "${query}"` : ' Trending'}
                 </div>
               }
@@ -127,9 +128,9 @@ GifList.propTypes = {
   gifsLoaded: PropTypes.bool,
   url: PropTypes.string,
   limit: PropTypes.number,
-  pagination: PropTypes.object,
+  paginationData: PropTypes.object,
   query: PropTypes.string,
-  infiniteScroll: PropTypes.bool
+  pagination: PropTypes.bool
 };
 
 const mapStateToProps = (state) => {
@@ -139,9 +140,9 @@ const mapStateToProps = (state) => {
     gifsLoaded: state.gifs.gifsLoaded,
     url: state.gifs.url,
     limit: state.gifs.limit,
-    pagination: state.gifs.pagination,
+    paginationData: state.gifs.paginationData,
     query: state.gifs.query,
-    infiniteScroll: state.infinite.infiniteScroll
+    pagination: state.pagination.pagination
   };
 }
 

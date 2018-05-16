@@ -110,10 +110,10 @@ export function closeModal() {
 }  
 
 // toggles infinite scrolling 
-export function toggleInfinite(bool) {
+export function togglePagination(bool) {
 
   return {
-    type: 'TOGGLE_INFINITE',
+    type: 'TOGGLE_PAGINATION',
     bool
   }
 }

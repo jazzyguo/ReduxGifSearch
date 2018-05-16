@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { toggleInfinite } from '../actions/actions';
+import { togglePagination } from '../actions/actions';
 import PropTypes from 'prop-types';
 import React from 'react';
 import GifList from './GifList/GifList';
@@ -14,7 +14,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { modalIsOpen, infiniteScroll } = this.props;
+    const { modalIsOpen, Pagination } = this.props;
     return (
       <div className="container">
         <SearchBar />
@@ -22,7 +22,7 @@ class App extends React.Component {
         {modalIsOpen &&
           <Modal />
         }
-        {/*{infiniteScroll &&
+        {/*{Pagination &&
           <Pagination />
         }*/}
       </div>
@@ -34,21 +34,21 @@ GifList.propTypes = {
   actions: PropTypes.object,
   data: PropTypes.object,
   modalIsOpen: PropTypes.bool,
-  infiniteScroll: PropTypes.bool
+  pagination: PropTypes.bool
 };
 
 const mapStateToProps = (state) => {
   return {
     data: state.gifs,
     modalIsOpen: state.modal.modalIsOpen,
-    infiniteScroll: state.infinite.infiniteScroll
+    pagination: state.pagination.pagination
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators({
-      toggleInfinite
+      togglePagination
     }, dispatch)
   };
 }
