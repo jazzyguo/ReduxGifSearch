@@ -55,7 +55,12 @@ class GifItem extends PureComponent {
 				<p className="gif-title">{selectedGif.title}</p>
 				<img src={ selectedGif.images.original.url } />
 				<p className="gif-source"><strong>Source: </strong> 
-					<a href={ selectedGif.source }>{selectedGif.source}</a>
+					{selectedGif.source &&
+						<a href={ selectedGif.source }>{selectedGif.source}</a>
+					}
+					{!selectedGif.source &&
+						<span>N/A</span>
+					}
 				</p>
 				<p><strong>Rating: </strong>{selectedGif.rating.toUpperCase()}</p>
 			</React.Fragment>
