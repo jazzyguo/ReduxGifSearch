@@ -51,13 +51,13 @@ Modal.propTypes = {
   modalContent: PropTypes.object
 };
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     modalContent: state.modal.modalContent
   };
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(actions, dispatch)
   };

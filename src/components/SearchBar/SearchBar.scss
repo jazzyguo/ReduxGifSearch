@@ -13,6 +13,7 @@
     font-size: 20px;
     transition: width .2s ease-in;
     padding-right: 45px;
+    font-family: 'DDC';
     &--active {
         opacity: 1;
         width: calc(200px - 61px);

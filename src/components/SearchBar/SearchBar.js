@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../../actions/actions';
+import { getTrending, getGifs } from '../../actions/actions';
 import PropTypes from 'prop-types';
 import {bindAll, debounce} from 'lodash';
 import SearchIcon from '../Icon/SearchIcon';
@@ -149,15 +149,18 @@ SearchBar.propTypes = {
   actions: PropTypes.object,
 };
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     data: state.gifs
   };
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators({
+      getTrending,
+      getGifs
+    }, dispatch)
   };
 }
 
