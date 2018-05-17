@@ -6,6 +6,7 @@ import React from 'react';
 import GifList from './GifList/GifList';
 import SearchBar from './SearchBar/SearchBar';
 import Modal from './Modal/Modal';
+import Pagination from './Pagination/Pagination';
 
 class App extends React.Component {  
 
@@ -14,7 +15,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { modalIsOpen, Pagination } = this.props;
+    const { modalIsOpen, pagination } = this.props;
     return (
       <div className="container">
         <SearchBar />
@@ -22,9 +23,9 @@ class App extends React.Component {
         {modalIsOpen &&
           <Modal />
         }
-        {/*{Pagination &&
+        {pagination &&
           <Pagination />
-        }*/}
+        }
       </div>
     );
   }

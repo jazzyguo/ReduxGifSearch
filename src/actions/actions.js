@@ -6,9 +6,8 @@ const apiOffset = '&offset=';
 const apiKey = '&api_key=lZnfkdDQS6wkKNENzI1SOeTbF3GURqLz';
 const apiLimit = '&limit=';
 
-const defaultLimit = 25;
-
-let infiniteScroll = false;
+// 24 for even number of 2/3/4/6 item rows
+const defaultLimit = 24;
 
 /* maps the received gifs to state
  */
@@ -88,7 +87,7 @@ export function getMoreGifs(url, limit){
     const request = axios({
       method: 'GET',
       // sets the offset for additional gif fetches
-      url: url + apiOffset + `${limit-defaultLimit-1}`
+      url: `${url}${defaultLimit}${apiOffset}${limit-defaultLimit-1}`
     });
 
      return request.then(

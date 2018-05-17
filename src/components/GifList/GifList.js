@@ -20,13 +20,13 @@ class GifList extends PureComponent {
   	this.limitIncrease = 25;
     this.viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
 
-  	this._debouncedScroll = debounce(this._scroll, 100);
+  	this._debouncedScroll = debounce(this._scroll, 125);
   }
 
   componentWillMount() { 
     const { actions } = this.props;
 
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
 
     // gets trending gifs default
     actions.getTrending();
@@ -44,13 +44,18 @@ class GifList extends PureComponent {
     	const offset = d.scrollTop + window.innerHeight;
     	const height = d.offsetHeight;
 
-    	if (height - offset < 500) {
+      // check for height diff or if there is no scrollbar
+    	if (height - offset < 250 || height-offset === 0) {
   		  this._loadMoreGifs();
     	}
     }
   }
 
   _renderGifs() {
+    // Call scroll for screen sizes which 
+    // will not render a vertical scrollbar
+    this._debouncedScroll();
+    
   	return this.props.gifs.map((gif, key) => {
       return (
       	<GifItem gif={gif} key={key} 
@@ -76,7 +81,8 @@ class GifList extends PureComponent {
   }
 
   render() {
-    const { gifsLoaded, gifsLoading, gifs, query, paginationData } = this.props;
+    const { gifsLoaded, gifsLoading, gifs, 
+            query, paginationData, pagination } = this.props;
     
     return (
       <div className="gif-list gif-list__container container">
