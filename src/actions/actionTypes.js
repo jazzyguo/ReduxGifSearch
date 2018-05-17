@@ -3,13 +3,11 @@ export const GET_TRENDING = 'GET_TRENDING';
 export const GET_GIFS = 'GET_GIFS';
 export const GET_MORE_GIFS = 'GET_MORE_GIFS';
 export const RECEIVE_GIFS = 'RECEIVE_GIFS';
-export const GET_API_URL = 'GET_API_URL';
-export const GET_LIMIT = 'GET_LIMIT';
-export const GET_QUERY = 'GET_QUERY';
+export const RESET_GIFS = 'RESET_GIFS';
 
 // MODAL
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 
-// INFINITE SCROLLING
+// PAGINATION
 export const TOGGLE_PAGINATION = 'TOGGLE_PAGINATION';

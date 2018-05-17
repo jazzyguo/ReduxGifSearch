@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/actions';
 import PropTypes from 'prop-types';
 import { bindAll } from 'lodash';
+import './Pagination.css';
  
 class Pagination extends PureComponent {
 
@@ -12,14 +13,20 @@ class Pagination extends PureComponent {
 
 		bindAll(this, [
 		]);
+
 	}	
 
-
 	render() {
-		const { modalContent } = this.props;
+		const { paginationData, perPage} = this.props;
+    
+    const totalPages = (paginationData) 
+                        ? -~(paginationData.total_count / perPage) 
+                        : null;
 		return(
 			<div className="pagination">
-			
+      {paginationData &&
+			   totalPages
+      }
 			</div>
 		)
 	}
@@ -28,13 +35,13 @@ class Pagination extends PureComponent {
 Pagination.propTypes = {
   actions: PropTypes.object,
   paginationData: PropTypes.object,
-  Pagination: PropTypes.bool
+  perPage: PropTypes.number
 };
 
 const mapStateToProps = (state) => {
   return {
     paginationData: state.gifs.paginationData,
-    pagination: state.pagination.pagination
+    perPage: state.pagination.perPage
   };
 }
 

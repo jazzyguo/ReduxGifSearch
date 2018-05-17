@@ -27,7 +27,12 @@ export function getGifs(query, limit = defaultLimit){
   const url = `${apiUrl}search?q=${encodedQuery}${apiKey}${apiLimit}`;
 
   return function action(dispatch) {
-      dispatch({ type: types.GET_GIFS })
+      dispatch({ 
+        type: types.GET_GIFS,
+        url,
+        limit,
+        query,
+      })
 
       const request = axios({
        method: 'GET',
@@ -36,16 +41,7 @@ export function getGifs(query, limit = defaultLimit){
     
     return request.then(
       response => dispatch(receiveGIFS(response)),
-
-    // retain states wiped by action
-    ).then(() => {
-        dispatch({ type: 'GET_API_URL', payload: url });
-    }).then(() => {
-        dispatch({ type: 'GET_LIMIT', payload: limit });
-    // sets query to display with results info
-    }).then(() => {
-        dispatch({ type: 'GET_QUERY', payload: query });
-    });
+    )
   }
 }
 
@@ -56,7 +52,12 @@ export function getTrending(limit = defaultLimit) {
   const url = `${apiUrl}trending?${apiKey}${apiLimit}`;
 
   return function action(dispatch) {
-    dispatch({ type: types.GET_TRENDING })
+    dispatch({ 
+      type: types.GET_TRENDING,
+      url,
+      limit,
+      query: ""
+    })
 
     const request = axios({
       method: 'GET',
@@ -65,16 +66,7 @@ export function getTrending(limit = defaultLimit) {
     
     return request.then(
       response => dispatch(receiveGIFS(response)),
-
-    // retain states wiped by action
-    ).then(() => {
-        dispatch({ type: 'GET_API_URL', payload: url });
-    }).then(() => {
-        dispatch({ type: 'GET_LIMIT', payload: limit });
-        //resets query to null for trending
-    }).then(() => {
-        dispatch({ type: 'GET_QUERY', payload: "" });
-    });
+    )
   }
 }
 
@@ -93,6 +85,14 @@ export function getMoreGifs(url, limit){
      return request.then(
       response => dispatch(receiveGIFS(response)),
     );
+  }
+}
+
+/* resets gifs - used for pagination toggle
+ */
+export function resetGifs() {
+  return {
+    type: 'RESET_GIFS'
   }
 }
 
@@ -116,10 +116,9 @@ export function closeModal() {
 /* toggles pagination - off by default
  * infinite scrolling is used otherwise
  */ 
-export function togglePagination(bool) {
+export function togglePagination() {
 
   return {
-    type: 'TOGGLE_PAGINATION',
-    bool
+    type: 'TOGGLE_PAGINATION'
   }
 }

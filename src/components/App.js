@@ -1,12 +1,11 @@
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { togglePagination } from '../actions/actions';
-import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import GifList from './GifList/GifList';
 import SearchBar from './SearchBar/SearchBar';
 import Modal from './Modal/Modal';
 import Pagination from './Pagination/Pagination';
+import PaginationToggle from './Pagination/PaginationToggle';
 
 class App extends React.Component {  
 
@@ -16,9 +15,11 @@ class App extends React.Component {
 
   render() {
     const { modalIsOpen, pagination } = this.props;
+
     return (
       <div className="container">
         <SearchBar />
+        <PaginationToggle />
         <GifList />
         {modalIsOpen &&
           <Modal />
@@ -30,31 +31,23 @@ class App extends React.Component {
     );
   }
 }
-
+/*
+ * @ {modalIsOpen} - boolean to check if gifs are loaded
+ * @ {pagination} - boolean for pagination toggle
+ */
 GifList.propTypes = {
-  actions: PropTypes.object,
-  data: PropTypes.object,
   modalIsOpen: PropTypes.bool,
-  pagination: PropTypes.bool
+  pagination: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => {
   return {
-    data: state.gifs,
     modalIsOpen: state.modal.modalIsOpen,
     pagination: state.pagination.pagination
   };
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators({
-      togglePagination
-    }, dispatch)
-  };
-}
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(App);

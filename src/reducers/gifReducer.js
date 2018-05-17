@@ -1,7 +1,6 @@
 import { GET_TRENDING, GET_GIFS, 
-        RECEIVE_GIFS, GET_API_URL, 
-        GET_MORE_GIFS, GET_LIMIT,
-        GET_QUERY } from '../actions/actionTypes';
+         RECEIVE_GIFS, GET_MORE_GIFS, 
+         RESET_GIFS } from '../actions/actionTypes';
 
 const initState = {
 	gifs: [],
@@ -21,22 +20,25 @@ export default function gifReducer(state = initState, action) {
     	console.log('GET_GIFS');
     	newState = Object.assign({}, state, {
           gifsLoading: true,
-          limit: 25,
+          url: action.url,
+          limit: action.limit,
+          query: action.query
       });
     	return action;
 
     case GET_TRENDING:
       console.log('GET_TRENDING');
       newState = Object.assign({}, state, {
-        gifsLoading: true,
-        limit: 25        
+          gifsLoading: true,
+          url: action.url,
+          limit: action.limit
       });
     	return action;
 
     case RECEIVE_GIFS:
         console.log('RECEIVE_GIFS');
         // concats new fetched gifs with previous gifs
-        const gifsArray = state.gifs 
+        const gifsArray = state.gifs  
           ? concatGifs(state.gifs, action.payload.data) 
           : action.payload.data
     	newState = Object.assign({}, state, {
@@ -47,29 +49,17 @@ export default function gifReducer(state = initState, action) {
         });
     	break;
 
-    case GET_API_URL:
-    	newState = Object.assign({}, state, {
-        	url: action.payload
-      });
-      break;
-
-    case GET_LIMIT:
-    	newState = Object.assign({}, state, {
-        	limit: action.payload
-      });
-      break;
-
-    case GET_QUERY:
-      newState = Object.assign({}, state, {
-          query: action.payload
-      });
-      break;
-
     case GET_MORE_GIFS:
     	console.log('GET_MORE_GIFS');
     	newState = Object.assign({}, state, {
           limit: action.payload,
           gifsLoading: true
+      });
+      break;
+
+    case RESET_GIFS:
+      newState = Object.assign({}, state, {
+          gifs: [],
       });
       break;
 
