@@ -68,7 +68,7 @@ class SearchBar extends PureComponent {
   }
 
   _fetchGifs(query) {
-    this.props.actions.getGifs(query, this.props.limit);
+    this.props.actions.getGifs(query, 24);
   }
 
   /* Toggle search function buggy with 

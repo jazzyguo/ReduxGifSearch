@@ -27,10 +27,6 @@ export function getGifs(query, limit = defaultLimit){
   const encodedQuery = encodeURIComponent(query);
   const url = `${apiUrl}search?q=${encodedQuery}${apiKey}${apiLimit}`;
 
-  if(hasVerticalScroll()) {
-    limit = defaultLimit * 2;
-  }
-
   return function action(dispatch) {
       dispatch({ 
         type: types.GET_GIFS,
