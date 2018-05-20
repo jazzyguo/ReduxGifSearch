@@ -11,3 +11,4 @@ public/bundle.js.gz
 package-lock.json
 firebase.json
 .firebaserc
+public/styles/fonts/

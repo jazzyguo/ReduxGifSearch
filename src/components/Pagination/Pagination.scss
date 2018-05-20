@@ -1,0 +1,25 @@
+@import '../../../public/styles/global-styles';
+.pagination {
+    text-align: center;
+    &__toggle {
+        display: flex;
+        position: fixed;
+        top: 50px;
+        right: 5px;
+        z-index: 1;
+        @include breakpoint-min(md) {
+            top: 75px;
+        }
+        svg {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            fill: color(secondaryColor);
+            margin: auto;
+            @include breakpoint-min(md) {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    }
+}

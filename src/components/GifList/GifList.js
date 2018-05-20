@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../../actions/actions';
+import { getGifs, getMoreGifs } from '../../actions/actions';
 import PropTypes from 'prop-types';
 import { forEach, bindAll, debounce} from 'lodash';
 import GifItem from './GifItem';
+import { compareScroll } from '../../util/helpers.js';
 import './GifList.css';
 
 class GifList extends PureComponent {  
@@ -20,32 +21,34 @@ class GifList extends PureComponent {
   	this.limitIncrease = 25;
     this.viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
 
-  	this._debouncedScroll = debounce(this._scroll, 100);
+  	this._debouncedScroll = debounce(this._scroll, 125);
   }
 
   componentWillMount() { 
-     window.scrollTo(0, 0)
+    const { actions,  } = this.props;
 
-     // gets trending gifs default
-     this.props.actions.getTrending();
+    window.scrollTo(0, 0);
 
-     window.onscroll = () => {
+    // gets trending gifs default
+    actions.getGifs();
+
+    window.onscroll = () => {
      	this._debouncedScroll();
-	   }
+	  }
   }
 
   // allows more gifs to load as the user scrolls near the bottom
   _scroll(){
-	  const d = document.documentElement;
-  	const offset = d.scrollTop + window.innerHeight;
-  	const height = d.offsetHeight;
-
-  	if (height - offset < 500) {
-		  this._loadMoreGifs();
-  	}
+    // infinite scroll is on if pagination is off
+    if(!this.props.pagination) {
+    	if (compareScroll('<=', 200)) {
+  		  this._loadMoreGifs();
+    	}
+    }
   }
 
   _renderGifs() {
+    
   	return this.props.gifs.map((gif, key) => {
       return (
       	<GifItem gif={gif} key={key} 
@@ -65,25 +68,33 @@ class GifList extends PureComponent {
       </div>
     )
   }
-  
+
   _loadMoreGifs(){	
   	this.props.actions.getMoreGifs(this.props.url, this.props.limit + this.limitIncrease);
   }
 
   render() {
-    const { gifsLoaded, gifsLoading, gifs } = this.props;
+    const { gifsLoaded, gifsLoading, gifs, 
+            query, paginationData, pagination } = this.props;
+    
     return (
       <div className="gif-list gif-list__container container">
 
-          {gifsLoaded 
-          	?   
-          	(gifs.length === 0) 
-          		?	<div className="gif-list__no-data">
-           			No Results Found
-             		</div>
-            	:   <ul className="gif-list__list">
-         	   			{ this._renderGifs() }
-         		    </ul>
+          {gifsLoaded ?   
+            (gifs.length === 0) 
+            ?	<div className="gif-list__no-data">
+                No Results Found
+              </div>
+            :   
+            <ul className="gif-list__list">
+              {paginationData &&
+                <div className="results">
+                  {paginationData.total_count} Results in 
+                    {(query) ? ` "${query}"` : ' Trending'}
+                </div>
+              }
+              { this._renderGifs() }
+            </ul>
             : undefined
           }
 
@@ -105,6 +116,10 @@ class GifList extends PureComponent {
  * @ {gifsLoaded} - boolean to check if gifs are loaded
  * @ {url} - the current url being used 
  * @ {limit} - the set limit for fetched gifs
+ * @ {paginationData} - object containing pagination info
+ * @ {query} - the current search query
+ * @ {infiniteScroll} - toggle for infinite scrolling
+ * @ {pagination} - boolean flag for pagination on/off
  */
 GifList.propTypes = {
   actions: PropTypes.object,
@@ -112,22 +127,31 @@ GifList.propTypes = {
   gifsLoading: PropTypes.bool,
   gifsLoaded: PropTypes.bool,
   url: PropTypes.string,
-  limit: PropTypes.number
+  limit: PropTypes.number,
+  paginationData: PropTypes.object,
+  query: PropTypes.string,
+  pagination: PropTypes.bool
 };
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     gifs: state.gifs.gifs,
     gifsLoading: state.gifs.gifsLoading,
     gifsLoaded: state.gifs.gifsLoaded,
     url: state.gifs.url,
-    limit: state.gifs.limit
+    limit: state.gifs.limit,
+    paginationData: state.gifs.paginationData,
+    query: state.gifs.query,
+    pagination: state.pagination.pagination
   };
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators({
+      getGifs,
+      getMoreGifs
+    }, dispatch)
   };
 }
 

@@ -1,23 +1,31 @@
 @import '../../../public/styles/global-styles';
 .search-bar {
     position: absolute;
-    right: 85px;
+    right: 75px;
     bottom: 0;
     opacity: 0;
     width: 0;
     text-align: center;
-    margin: 2rem auto 1rem;
-    padding: 5px 1rem;
+    margin: 36px auto 18px;
+    padding: 5px 18px;
     border: 1px solid black;
     border-radius: 12px;
     font-size: 20px;
-    transition: all .2s ease-in;
+    transition: width .2s ease-in;
     padding-right: 45px;
+    font-family: 'DDC';
     &--active {
         opacity: 1;
-        width: 50%;
-        transition: width .4s ease-out;
+        width: calc(200px - 61px);
+        transition: opacity .4s ease-out;
+        right: 0;
+        left: 0;
+        bottom: -12px;
+        @include breakpoint-min(xs) {
+            width: calc(260px - 61px);
+        }
         @include breakpoint-min(md) {
+            bottom: 0;
             width: 315px;
         }
     }
@@ -26,36 +34,68 @@
         justify-content: flex-end;
         background-color: rgba(0, 0, 0, .3);
         position: fixed;
-        width: 50px;
+        z-index: 1;
+        width: 37px;
         top: 0;
         right: 0;
         padding: 5px;
         margin: 5px;
         border-radius: 12px;
         transition: width .3s ease-in;
+        @include breakpoint-min(md) {
+            width: 50px;
+        }
         &--active {
             width: 95%;
             transition: width .3s ease-out;
             @include breakpoint-min(md) {
                 width: 470px;
             }
+            .input-container {
+                width: $searchBar !important;
+
+                @include breakpoint-min(xs) {
+                    width: $searchBar-xs !important;
+                }
+            }
+        }
+        .input-container {
+            position: absolute;
+            bottom: 0;
+            width: 0px;
+            height: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+            @include breakpoint-min(md) {
+                left: 155px;
+            }
         }
         .search-icon {
             position: relative;
             fill: color(secondaryColor);
             padding: 3px;
+            width: 30px;
+            height: 30px;
+            @include breakpoint-min(md) {
+                width: 50px;
+                height: 50px;
+            }
         }
         .close-icon {
             cursor: pointer;
             position: relative;
             left: 5px;
-            top: 5px;
+            top: 2.5px;
             &__container {
                 position: absolute;
                 height: 35px;
                 width: 35px;
-                top: 15px;
-                right: 90px;
+                right: 0;
+                @include breakpoint-min(md) {
+                    bottom: 15px;
+                    right: -110px;
+                }
             }
             &:hover {
                 fill: red;

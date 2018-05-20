@@ -31,8 +31,8 @@
         .close-icon {
             cursor: pointer;
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: -30px;
+            right: 0;
             fill: color(secondaryColor);
             &:hover {
                 fill: red;
@@ -43,11 +43,12 @@
     .gif {
         &-title {
             font-size: 26px;
-            margin: 3px 0;
+            margin: 3px auto;
             font-weight: bold;
+            max-width: 450px;
         }
         &-source {
-        	max-width: 70%;
+        	max-width: 300px;
         	margin: auto;
         	word-wrap: break-word;
         }

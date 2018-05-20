@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../../actions/actions';
+import { getGifs } from '../../actions/actions';
 import PropTypes from 'prop-types';
 import {bindAll, debounce} from 'lodash';
 import SearchIcon from '../Icon/SearchIcon';
@@ -61,13 +61,13 @@ class SearchBar extends PureComponent {
       this._debouncedFetchGifs(value); 
       this.setState({query: true});
     } else {
-      this.props.actions.getTrending();
+      this._debouncedFetchGifs("");
       this.setState({query: false});
     }
   }
 
   _fetchGifs(query) {
-    this.props.actions.getGifs(query);
+    this.props.actions.getGifs(query, 24);
   }
 
   /* Toggle search function buggy with 
@@ -94,7 +94,7 @@ class SearchBar extends PureComponent {
 
   _clearSearch() {
     this.input.value = '';
-    this.props.actions.getTrending();
+    this.props.actions.getGifs();
     this.setState({query: false});
   }
 
@@ -104,8 +104,9 @@ class SearchBar extends PureComponent {
     });
   }
 
+  // **TODO create mobile modal - has top search for now
   _openMobileSearch() {
-
+    this._openSearch();
   }
 
   render() {
@@ -120,22 +121,24 @@ class SearchBar extends PureComponent {
                         ? 'search-bar__container search-bar__container--active'
                         : 'search-bar__container'}>
       <SearchIcon />
-        <input type='text'
-               ref={(input) => {this.input = input}} 
-               className={visible 
-                            ? 'search-bar search-bar--active'
-                            : 'search-bar'}
-               onChange={ this._handleSearch }
-               onFocus={ this._onFocus } 
-               onBlur={ this._onFocus }
-               placeholder="Search Gifs" >
-        </input> 
-        {query && visible &&
-          <div className="close-icon__container"
-               onClick={ this._clearSearch }>
-            <CloseIcon />
-          </div>
-        } 
+        <div className="input-container">
+          <input type='text'
+                 ref={(input) => {this.input = input}} 
+                 className={visible 
+                              ? 'search-bar search-bar--active'
+                              : 'search-bar'}
+                 onChange={ this._handleSearch }
+                 onFocus={ this._onFocus }
+                 onBlur={ this._onFocus }
+                 placeholder="Search Gifs" >
+          </input> 
+          {query && visible &&
+            <div className="close-icon__container"
+                 onClick={ this._clearSearch }>
+              <CloseIcon />
+            </div>
+          } 
+        </div>
       </div>
     );
   }
@@ -145,15 +148,18 @@ SearchBar.propTypes = {
   actions: PropTypes.object,
 };
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
-    data: state.gifs
+    data: state.gifs,
+    limit: state.gifs.limit
   };
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators({
+      getGifs
+    }, dispatch)
   };
 }
 
