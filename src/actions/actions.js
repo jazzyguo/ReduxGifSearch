@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import axios from 'axios';
+import { hasVerticalScroll } from '../util/helpers.js';
 
 const apiUrl = 'https://api.giphy.com/v1/gifs/';
 const apiOffset = '&offset=';
@@ -26,6 +27,10 @@ export function getGifs(query, limit = defaultLimit){
   const encodedQuery = encodeURIComponent(query);
   const url = `${apiUrl}search?q=${encodedQuery}${apiKey}${apiLimit}`;
 
+  if(hasVerticalScroll()) {
+    limit = defaultLimit * 2;
+  }
+
   return function action(dispatch) {
       dispatch({ 
         type: types.GET_GIFS,
@@ -40,8 +45,13 @@ export function getGifs(query, limit = defaultLimit){
       });
     
     return request.then(
-      response => dispatch(receiveGIFS(response)),
-    )
+      response => dispatch(receiveGIFS(response))
+    ).then( () => {
+        if(!hasVerticalScroll()){
+          dispatch(getMoreGifs(url, defaultLimit * 2))
+        }
+      }
+    );
   }
 }
 
@@ -65,25 +75,32 @@ export function getTrending(limit = defaultLimit) {
     });
     
     return request.then(
-      response => dispatch(receiveGIFS(response)),
-    )
+      response => dispatch(receiveGIFS(response))
+    ).then( () => {
+        if(!hasVerticalScroll()){
+          dispatch(getMoreGifs(url, defaultLimit * 2))
+        }
+      }
+    );
   }
 }
 
 /* fetches additional gifs
  */
-export function getMoreGifs(url, limit){
+export function getMoreGifs(url, limit = defaultLimit){
 
   return function action(dispatch) {
-    dispatch({ type: 'GET_MORE_GIFS', payload: limit })
+    dispatch({ 
+      type: 'GET_MORE_GIFS', 
+      payload: limit 
+    })
     const request = axios({
       method: 'GET',
       // sets the offset for additional gif fetches
       url: `${url}${defaultLimit}${apiOffset}${limit-defaultLimit-1}`
     });
-
-     return request.then(
-      response => dispatch(receiveGIFS(response)),
+    return request.then(
+      response => dispatch(receiveGIFS(response))
     );
   }
 }

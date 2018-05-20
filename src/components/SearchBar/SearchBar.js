@@ -68,7 +68,7 @@ class SearchBar extends PureComponent {
   }
 
   _fetchGifs(query) {
-    this.props.actions.getGifs(query);
+    this.props.actions.getGifs(query, this.props.limit);
   }
 
   /* Toggle search function buggy with 
@@ -151,7 +151,8 @@ SearchBar.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.gifs
+    data: state.gifs,
+    limit: state.gifs.limit
   };
 }
 

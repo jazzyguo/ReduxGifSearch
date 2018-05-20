@@ -1,8 +1,9 @@
 import { TOGGLE_PAGINATION } from '../actions/actionTypes';
 
 const initState =  {
-  pagination: true,
+  pagination: false,
   perPage: 24,
+  currentPage: 0
 };
 
 //reducers used to toggle infinite scroll state

@@ -5,6 +5,7 @@ import { getTrending, getMoreGifs } from '../../actions/actions';
 import PropTypes from 'prop-types';
 import { forEach, bindAll, debounce} from 'lodash';
 import GifItem from './GifItem';
+import { compareScroll } from '../../util/helpers.js';
 import './GifList.css';
 
 class GifList extends PureComponent {  
@@ -24,7 +25,7 @@ class GifList extends PureComponent {
   }
 
   componentWillMount() { 
-    const { actions } = this.props;
+    const { actions,  } = this.props;
 
     window.scrollTo(0, 0);
 
@@ -40,21 +41,13 @@ class GifList extends PureComponent {
   _scroll(){
     // infinite scroll is on if pagination is off
     if(!this.props.pagination) {
-  	  const d = document.documentElement;
-    	const offset = d.scrollTop + window.innerHeight;
-    	const height = d.offsetHeight;
-
-      // check for height diff or if there is no scrollbar
-    	if (height - offset < 250 || height-offset === 0) {
+    	if (compareScroll('<=', 200)) {
   		  this._loadMoreGifs();
     	}
     }
   }
 
   _renderGifs() {
-    // Call scroll for screen sizes which 
-    // will not render a vertical scrollbar
-    this._debouncedScroll();
     
   	return this.props.gifs.map((gif, key) => {
       return (
