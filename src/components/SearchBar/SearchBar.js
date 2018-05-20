@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getTrending, getGifs } from '../../actions/actions';
+import { getGifs } from '../../actions/actions';
 import PropTypes from 'prop-types';
 import {bindAll, debounce} from 'lodash';
 import SearchIcon from '../Icon/SearchIcon';
@@ -28,7 +28,6 @@ class SearchBar extends PureComponent {
 
    this._openSearch = debounce(this._openSearch, searchFlyOut);
    this._closeSearch = debounce(this._closeSearch, searchFlyOut);
-   this._getTrending = debounce(props.actions.getTrending, 500);
    this._debouncedFetchGifs = debounce(this._fetchGifs, 500);
 
     this.state = {
@@ -62,7 +61,7 @@ class SearchBar extends PureComponent {
       this._debouncedFetchGifs(value); 
       this.setState({query: true});
     } else {
-      this._getTrending();
+      this._debouncedFetchGifs("");
       this.setState({query: false});
     }
   }
@@ -95,7 +94,7 @@ class SearchBar extends PureComponent {
 
   _clearSearch() {
     this.input.value = '';
-    this.props.actions.getTrending();
+    this.props.actions.getGifs();
     this.setState({query: false});
   }
 
@@ -159,7 +158,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators({
-      getTrending,
       getGifs
     }, dispatch)
   };

@@ -7,7 +7,7 @@ const initState =  {
 };
 
 //reducers used to toggle infinite scroll state
-export default function togglePaginationReducer(state = initState, action) {
+export default function paginationReducer(state = initState, action) {
   let newState;
   switch(action.type) {
     case TOGGLE_PAGINATION:

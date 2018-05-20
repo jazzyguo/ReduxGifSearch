@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getTrending, getMoreGifs } from '../../actions/actions';
+import { getGifs, getMoreGifs } from '../../actions/actions';
 import PropTypes from 'prop-types';
 import { forEach, bindAll, debounce} from 'lodash';
 import GifItem from './GifItem';
@@ -30,7 +30,7 @@ class GifList extends PureComponent {
     window.scrollTo(0, 0);
 
     // gets trending gifs default
-    actions.getTrending();
+    actions.getGifs();
 
     window.onscroll = () => {
      	this._debouncedScroll();
@@ -149,7 +149,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators({
-      getTrending,
+      getGifs,
       getMoreGifs
     }, dispatch)
   };

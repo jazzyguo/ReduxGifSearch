@@ -1,8 +1,7 @@
 import  React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getTrending, getGifs, 
-		 togglePagination, resetGifs } from '../../actions/actions';
+import { getGifs, togglePagination, resetGifs } from '../../actions/actions';
 import PropTypes from 'prop-types';
 import { bindAll } from 'lodash';
 import InfinityIcon from '../Icon/InfinityIcon';
@@ -35,7 +34,7 @@ class PaginationToggle extends PureComponent {
    	 	// fetch new gif data from current query
    	 	(query)
       		? actions.getGifs(query, this.limit)
-      		: actions.getTrending();
+      		: actions.getGifs();
     }
 
     _renderToggleButton() {
@@ -72,7 +71,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators({
-      getTrending,
       getGifs,
       togglePagination,
       resetGifs

@@ -1,5 +1,4 @@
-import { GET_TRENDING, GET_GIFS, 
-         RECEIVE_GIFS, GET_MORE_GIFS, 
+import { GET_GIFS, RECEIVE_GIFS, GET_MORE_GIFS, 
          RESET_GIFS } from '../actions/actionTypes';
 
 const initState = {
@@ -23,15 +22,6 @@ export default function gifReducer(state = initState, action) {
           url: action.url,
           limit: action.limit,
           query: action.query
-      });
-    	return action;
-
-    case GET_TRENDING:
-      console.log('GET_TRENDING');
-      newState = Object.assign({}, state, {
-          gifsLoading: true,
-          url: action.url,
-          limit: action.limit
       });
     	return action;
 

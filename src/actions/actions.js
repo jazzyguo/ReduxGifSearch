@@ -21,13 +21,22 @@ export function receiveGIFS(gifs) {
 }
 
 /* fetches gifs on search input
+ * if query === "", then get trending
  */
-export function getGifs(query, limit = defaultLimit){
+export function getGifs(query = "", limit = defaultLimit){
+  let encodedQuery;
+  let url;
 
-  const encodedQuery = encodeURIComponent(query);
-  const url = `${apiUrl}search?q=${encodedQuery}${apiKey}${apiLimit}`;
+  // get trending
+  if(query !== "") {
+    encodedQuery = encodeURIComponent(query);
+     url = `${apiUrl}search?q=${encodedQuery}${apiKey}${apiLimit}`;
+  } else {
+    // fetch search query
+    url = `${apiUrl}trending?${apiKey}${apiLimit}`;
+  }
 
-  return function action(dispatch) {
+  return function action(dispatch, getState) {
       dispatch({ 
         type: types.GET_GIFS,
         url,
@@ -43,38 +52,9 @@ export function getGifs(query, limit = defaultLimit){
     return request.then(
       response => dispatch(receiveGIFS(response))
     ).then( () => {
-        if(!hasVerticalScroll()){
-          dispatch(getMoreGifs(url, defaultLimit * 2))
-        }
-      }
-    );
-  }
-}
-
-/* fetches trending gifs
- */
-export function getTrending(limit = defaultLimit) {
-
-  const url = `${apiUrl}trending?${apiKey}${apiLimit}`;
-
-  return function action(dispatch) {
-    dispatch({ 
-      type: types.GET_TRENDING,
-      url,
-      limit,
-      query: ""
-    })
-
-    const request = axios({
-      method: 'GET',
-      url: url + limit
-    });
-    
-    return request.then(
-      response => dispatch(receiveGIFS(response))
-    ).then( () => {
-        if(!hasVerticalScroll()){
-          dispatch(getMoreGifs(url, defaultLimit * 2))
+        // if no pagination and no vertical scroll bar, then get gifs
+        if(!hasVerticalScroll() && !getState().pagination.pagination) {          
+          dispatch(getMoreGifs(url, defaultLimit * 2));
         }
       }
     );
