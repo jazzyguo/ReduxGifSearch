@@ -18,13 +18,14 @@ class PaginationToggle extends PureComponent {
 		this.limit = 24;
   	}
 
-  	/*
-     * Toggle pagination on/off 
+  	/* Toggle pagination on/off 
    	 * resets current gif data
+     * Only works if there are no pending requests
    	 */
    	 _togglePagination() {
-   	 	const { actions, query } = this.props;
+   	 	const { actions, query, gifsLoading } = this.props;
 
+      if(!gifsLoading) {
    	 	// toggle
    	 	actions.togglePagination();
 
@@ -35,6 +36,7 @@ class PaginationToggle extends PureComponent {
    	 	(query)
       		? actions.getGifs(query, this.limit)
       		: actions.getGifs();
+      }
     }
 
     _renderToggleButton() {
@@ -56,15 +58,18 @@ class PaginationToggle extends PureComponent {
 /*
  * @ {actions} 
  * @ {query} - used for pagination toggle to reset gifs
+ * @ {gifsLoading} - toggle wont work if there are pending requests
  */
 PaginationToggle.propTypes = {
   actions: PropTypes.object,
-  query: PropTypes.string
+  query: PropTypes.string,
+  gifsLoading: PropTypes.bool
 };
 
 const mapStateToProps = (state) => {
   return {
-    query: state.gifs.query
+    query: state.gifs.query,
+    gifsLoading: state.gifs.gifsLoading
   };
 }
 

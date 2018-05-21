@@ -54,7 +54,7 @@ export function getGifs(query = "", limit = defaultLimit){
     ).then( () => {
         // if no pagination and no vertical scroll bar, then get gifs
         if(!hasVerticalScroll() && !getState().pagination.pagination) {          
-          dispatch(getMoreGifs(url, defaultLimit * 2));
+          dispatch(getMoreGifs(url, (defaultLimit * 2) + 1));
         }
       }
     );

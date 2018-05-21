@@ -39,9 +39,10 @@ class GifList extends PureComponent {
 
   // allows more gifs to load as the user scrolls near the bottom
   _scroll(){
+    const { pagination, gifsLoading } = this.props;
     // infinite scroll is on if pagination is off
-    if(!this.props.pagination) {
-    	if (compareScroll('<=', 200)) {
+    if(!pagination) {
+    	if (compareScroll('<=', 200) && !gifsLoading) {
   		  this._loadMoreGifs();
     	}
     }
@@ -70,7 +71,8 @@ class GifList extends PureComponent {
   }
 
   _loadMoreGifs(){	
-  	this.props.actions.getMoreGifs(this.props.url, this.props.limit + this.limitIncrease);
+    const { actions, url, limit } = this.props;
+  	actions.getMoreGifs(url, limit + this.limitIncrease);
   }
 
   render() {
