@@ -18,7 +18,7 @@ class GifList extends PureComponent {
       '_renderLoader'
   	]);
 
-  	this.limitIncrease = 25;
+  	this.limitIncrease = 24;
     this.viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
 
   	this._debouncedScroll = debounce(this._scroll, 125);
@@ -72,6 +72,7 @@ class GifList extends PureComponent {
 
   _loadMoreGifs(){	
     const { actions, url, limit } = this.props;
+    // get this.limitIncrease more gifs
   	actions.getMoreGifs(url, limit + this.limitIncrease);
   }
 

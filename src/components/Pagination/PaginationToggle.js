@@ -26,16 +26,16 @@ class PaginationToggle extends PureComponent {
    	 	const { actions, query, gifsLoading } = this.props;
 
       if(!gifsLoading) {
-   	 	// toggle
-   	 	actions.togglePagination();
+     	 	// toggle
+     	 	actions.togglePagination();
 
-   	 	// reset current gif data 
-   	 	actions.resetGifs();
+     	 	// reset current gif data 
+     	 	actions.resetGifs();
 
-   	 	// fetch new gif data from current query
-   	 	(query)
-      		? actions.getGifs(query, this.limit)
-      		: actions.getGifs();
+     	 	// fetch new gif data from current query
+     	 	(query)
+        	? actions.getGifs(query, this.limit)
+        	: actions.getGifs();
       }
     }
 

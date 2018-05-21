@@ -54,7 +54,7 @@ export function getGifs(query = "", limit = defaultLimit){
     ).then( () => {
         // if no pagination and no vertical scroll bar, then get gifs
         if(!hasVerticalScroll() && !getState().pagination.pagination) {          
-          dispatch(getMoreGifs(url, (defaultLimit * 2) + 1));
+          dispatch(getMoreGifs(url, (defaultLimit * 2)));
         }
       }
     );
@@ -73,7 +73,7 @@ export function getMoreGifs(url, limit = defaultLimit){
     const request = axios({
       method: 'GET',
       // sets the offset for additional gif fetches
-      url: `${url}${defaultLimit}${apiOffset}${limit-defaultLimit-1}`
+      url: `${url}${defaultLimit}${apiOffset}${limit-defaultLimit}`
     });
     return request.then(
       response => dispatch(receiveGIFS(response))
