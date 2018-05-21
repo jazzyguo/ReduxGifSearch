@@ -3,6 +3,7 @@ export const GET_GIFS = 'GET_GIFS';
 export const GET_MORE_GIFS = 'GET_MORE_GIFS';
 export const RECEIVE_GIFS = 'RECEIVE_GIFS';
 export const RESET_GIFS = 'RESET_GIFS';
+export const GET_PAGE = 'GET_PAGE';
 
 // MODAL
 export const OPEN_MODAL = 'OPEN_MODAL';

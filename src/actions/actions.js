@@ -81,6 +81,13 @@ export function getMoreGifs(url, limit = defaultLimit){
   }
 }
 
+/* used in conjunction with switch page from pagination reducer
+ * @param {pageNum} int - fetches this page
+ */
+export function getPage(pageNum, limit = defaultLimit) {
+
+}
+
 /* resets gifs - used for pagination toggle
  */
 export function resetGifs() {

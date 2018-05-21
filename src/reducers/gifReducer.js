@@ -1,5 +1,5 @@
 import { GET_GIFS, RECEIVE_GIFS, GET_MORE_GIFS, 
-         RESET_GIFS } from '../actions/actionTypes';
+         RESET_GIFS, GET_PAGE } from '../actions/actionTypes';
 
 const initState = {
 	gifs: [],
@@ -51,6 +51,9 @@ export default function gifReducer(state = initState, action) {
       newState = Object.assign({}, state, {
           gifs: [],
       });
+      break;
+
+    case GET_PAGE:
       break;
 
     default:
