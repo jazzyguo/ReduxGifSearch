@@ -1,7 +1,8 @@
 import { TOGGLE_PAGINATION } from '../actions/actionTypes';
 
 const initState =  {
-  pagination: false
+  pagination: false,
+  perPage: 24
 };
 
 export default function paginationReducer(state = initState, action) {
