@@ -74,7 +74,8 @@ class Pagination extends PureComponent {
       pagination = pagination.filter((x) => x >= totalPages-4 && x < totalPages);
     } 
     const pages = pagination.map((page, i) => 
-      <span className="pagination__item" 
+      <span className={`pagination__item 
+                      ${currPage === page ? 'pagination__item--selected' : null}`}
             key={i} onClick={() => this._goToPage(page)}> {page} </span>
     );
     return pages;
@@ -103,7 +104,8 @@ class Pagination extends PureComponent {
        }
 
        {/* FIRST PAGE */}
-       <span className="pagination__item"
+       <span className={`pagination__item 
+                       ${currPage === 1 ? 'pagination__item--selected' : null}`}
              onClick={() => this._goToPage(1)}>1</span>
 
        {/* LEFT DOTS */}
@@ -121,7 +123,8 @@ class Pagination extends PureComponent {
 
        {/* LAST PAGE */}
        {totalPages !== 1 &&
-        <span className="pagination__item" 
+        <span className={`pagination__item
+                        ${currPage === totalPages ? 'pagination__item--selected' : null}`}
               onClick={() => this._goToPage(totalPages)}>{totalPages}</span>
        }
 
