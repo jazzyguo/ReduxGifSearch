@@ -14,17 +14,17 @@ class PaginationToggle extends PureComponent {
 			'_togglePagination',
 			'_renderToggleButton'
 		]);
+  }
 
-		this.limit = 24;
-  	}
+	/* Toggle pagination on/off 
+ 	 * resets current gif data
+   * Only works if there are no pending requests
+ 	 */
+ 	 _togglePagination() {
+ 	 	const { actions, query, gifsLoading, 
+            gifsLoaded, perPage } = this.props;
 
-  	/*
-     * Toggle pagination on/off 
-   	 * resets current gif data
-   	 */
-   	 _togglePagination() {
-   	 	const { actions, query } = this.props;
-
+    if(!gifsLoading && gifsLoaded) {
    	 	// toggle
    	 	actions.togglePagination();
 
@@ -33,38 +33,47 @@ class PaginationToggle extends PureComponent {
 
    	 	// fetch new gif data from current query
    	 	(query)
-      		? actions.getGifs(query, this.limit)
-      		: actions.getGifs();
+      	? actions.getGifs(query, perPage)
+      	: actions.getGifs();
     }
+  }
 
-    _renderToggleButton() {
-   		return (
-	    	<InfinityIcon onClick={ this._togglePagination }/>
-   		);
-   	}
+  _renderToggleButton() {
+ 		return (
+    	<InfinityIcon onClick={ this._togglePagination }/>
+ 		);
+ 	}
 
-   	render() {
+ 	render() {
 
-   		return (
-	  		<div className="pagination__toggle">
-   				{ this._renderToggleButton() }
-   			</div>
-   		)
-   	}
+ 		return (
+  		<div className="pagination__toggle">
+ 				{ this._renderToggleButton() }
+ 			</div>
+ 		)
+ 	}
 }
 
 /*
  * @ {actions} 
  * @ {query} - used for pagination toggle to reset gifs
+ * @ {gifsLoading} - toggle wont work if there are pending requests
+ * @ {gifsLoaded} - toggle can be clicked only after gifs are laoded
  */
 PaginationToggle.propTypes = {
   actions: PropTypes.object,
-  query: PropTypes.string
+  query: PropTypes.string,
+  gifsLoading: PropTypes.bool,
+  gifsLoaded: PropTypes.bool,
+  perPage: PropTypes.number
 };
 
 const mapStateToProps = (state) => {
   return {
-    query: state.gifs.query
+    query: state.gifs.query,
+    gifsLoading: state.gifs.gifsLoading,
+    gifsLoaded: state.gifs.gifsLoaded,
+    perPage: state.pagination.perPage
   };
 }
 

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { forEach, bindAll, debounce} from 'lodash';
 import GifItem from './GifItem';
 import { compareScroll } from '../../util/helpers.js';
+import Pagination from '../Pagination/Pagination';
 import './GifList.css';
 
 class GifList extends PureComponent {  
@@ -18,7 +19,7 @@ class GifList extends PureComponent {
       '_renderLoader'
   	]);
 
-  	this.limitIncrease = 25;
+  	this.limitIncrease = 24;
     this.viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
 
   	this._debouncedScroll = debounce(this._scroll, 125);
@@ -39,9 +40,10 @@ class GifList extends PureComponent {
 
   // allows more gifs to load as the user scrolls near the bottom
   _scroll(){
+    const { pagination, gifsLoading } = this.props;
     // infinite scroll is on if pagination is off
-    if(!this.props.pagination) {
-    	if (compareScroll('<=', 200)) {
+    if(!pagination) {
+    	if (compareScroll('<=', 200) && !gifsLoading) {
   		  this._loadMoreGifs();
     	}
     }
@@ -70,7 +72,9 @@ class GifList extends PureComponent {
   }
 
   _loadMoreGifs(){	
-  	this.props.actions.getMoreGifs(this.props.url, this.props.limit + this.limitIncrease);
+    const { actions, url, limit } = this.props;
+    // get this.limitIncrease more gifs
+  	actions.getMoreGifs(url, limit + this.limitIncrease);
   }
 
   render() {
@@ -79,7 +83,6 @@ class GifList extends PureComponent {
     
     return (
       <div className="gif-list gif-list__container container">
-
           {gifsLoaded ?   
             (gifs.length === 0) 
             ?	<div className="gif-list__no-data">
@@ -97,13 +100,14 @@ class GifList extends PureComponent {
             </ul>
             : undefined
           }
-
           {!gifsLoaded &&
             this._renderLoader(2)
           }
-
           {gifsLoading &&
             this._renderLoader(1)
+          }
+          {pagination && gifsLoaded &&
+            <Pagination />
           }
       </div>
     );

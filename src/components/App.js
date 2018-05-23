@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import GifList from './GifList/GifList';
 import SearchBar from './SearchBar/SearchBar';
 import Modal from './Modal/Modal';
-import Pagination from './Pagination/Pagination';
 import PaginationToggle from './Pagination/PaginationToggle';
 
 class App extends React.Component {  
@@ -14,7 +13,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { modalIsOpen, pagination } = this.props;
+    const { modalIsOpen } = this.props;
 
     return (
       <div className="container">
@@ -23,9 +22,6 @@ class App extends React.Component {
         <GifList />
         {modalIsOpen &&
           <Modal />
-        }
-        {pagination &&
-          <Pagination />
         }
       </div>
     );
@@ -36,14 +32,12 @@ class App extends React.Component {
  * @ {pagination} - boolean for pagination toggle
  */
 GifList.propTypes = {
-  modalIsOpen: PropTypes.bool,
-  pagination: PropTypes.bool,
+  modalIsOpen: PropTypes.bool
 };
 
 const mapStateToProps = (state) => {
   return {
-    modalIsOpen: state.modal.modalIsOpen,
-    pagination: state.pagination.pagination
+    modalIsOpen: state.modal.modalIsOpen
   };
 }
 
