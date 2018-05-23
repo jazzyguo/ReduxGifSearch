@@ -16,7 +16,7 @@
         div {
             width: 18px;
             height: 18px;
-            background-color: color(secondaryColor);
+            background-color: color(secondary);
             border-radius: 100%;
             display: inline-block;
             animation: loading1 .5s infinite ease-in-out both;
@@ -50,8 +50,8 @@
         width: 80px;
         height: 80px;
         border-radius: 50%;
-        border: 12px solid color(secondaryColor);
-        border-color: color(secondaryColor) transparent color(secondaryColor) transparent;
+        border: 12px solid color(secondary);
+        border-color: color(secondary) transparent color(secondary) transparent;
         animation: spin .7s linear infinite;
     }
 }

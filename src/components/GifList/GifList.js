@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { forEach, bindAll, debounce} from 'lodash';
 import GifItem from './GifItem';
 import { compareScroll } from '../../util/helpers.js';
+import Pagination from '../Pagination/Pagination';
 import './GifList.css';
 
 class GifList extends PureComponent {  
@@ -82,7 +83,6 @@ class GifList extends PureComponent {
     
     return (
       <div className="gif-list gif-list__container container">
-
           {gifsLoaded ?   
             (gifs.length === 0) 
             ?	<div className="gif-list__no-data">
@@ -100,13 +100,14 @@ class GifList extends PureComponent {
             </ul>
             : undefined
           }
-
           {!gifsLoaded &&
             this._renderLoader(2)
           }
-
           {gifsLoading &&
             this._renderLoader(1)
+          }
+          {pagination && gifsLoaded &&
+            <Pagination />
           }
       </div>
     );

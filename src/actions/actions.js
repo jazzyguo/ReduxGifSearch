@@ -117,8 +117,16 @@ export function closeModal() {
  * infinite scrolling is used otherwise
  */ 
 export function togglePagination() {
-
   return {
     type: 'TOGGLE_PAGINATION'
   }
 }
+
+/* @ {pageNum} Int - Goes to this page in pagination
+ */
+ export function goToPage(pageNum) {
+  return {
+    type: 'GO_TO_PAGE',
+    currPage: pageNum
+  }
+ }

@@ -11,3 +11,4 @@ export const CLOSE_MODAL = 'CLOSE_MODAL';
 
 // PAGINATION
 export const TOGGLE_PAGINATION = 'TOGGLE_PAGINATION';
+export const GO_TO_PAGE = 'GO_TO_PAGE';

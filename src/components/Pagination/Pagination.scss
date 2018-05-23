@@ -14,12 +14,27 @@
             width: 30px;
             height: 30px;
             cursor: pointer;
-            fill: color(secondaryColor);
+            fill: color(secondary);
             margin: auto;
             @include breakpoint-min(md) {
                 width: 40px;
                 height: 40px;
             }
         }
+    }
+    span {
+        margin: 0 15px;
+    }
+    &__item {
+        cursor: pointer;
+        &:hover {
+            color: color(secondary);
+        }
+        &--selected {
+            color: color(secondary);
+        }
+    }
+    &__next,&__prev {
+        cursor: pointer;
     }
 }
