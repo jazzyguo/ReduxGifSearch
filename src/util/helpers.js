@@ -6,7 +6,7 @@
 export function compareScroll(operand, num) {
 	let result = false;
 
-  const d = document.documentElement;
+  	const d = document.documentElement;
 	const offset = d.scrollTop + window.innerHeight;
 	const height = d.offsetHeight;
 	const diff = height - offset;

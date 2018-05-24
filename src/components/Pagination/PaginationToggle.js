@@ -45,9 +45,11 @@ class PaginationToggle extends PureComponent {
  	}
 
  	render() {
+    const { pagination } = this.props;
 
  		return (
-  		<div className="pagination__toggle">
+  		<div className={`pagination__toggle 
+                       ${pagination ? 'pagination__toggle--on' : null}`}>
  				{ this._renderToggleButton() }
  			</div>
  		)
@@ -65,7 +67,8 @@ PaginationToggle.propTypes = {
   query: PropTypes.string,
   gifsLoading: PropTypes.bool,
   gifsLoaded: PropTypes.bool,
-  perPage: PropTypes.number
+  perPage: PropTypes.number,
+  pagination: PropTypes.bool
 };
 
 const mapStateToProps = (state) => {
@@ -73,7 +76,8 @@ const mapStateToProps = (state) => {
     query: state.gifs.query,
     gifsLoading: state.gifs.gifsLoading,
     gifsLoaded: state.gifs.gifsLoaded,
-    perPage: state.pagination.perPage
+    perPage: state.pagination.perPage,
+    pagination: state.pagination.pagination
   };
 }
 

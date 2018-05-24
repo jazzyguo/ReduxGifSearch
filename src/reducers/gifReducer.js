@@ -8,7 +8,8 @@ const initState = {
 	url: "",
 	limit: null,
   paginationData: null,
-  query: ""
+  query: "",
+  infiniteScroll: true
 };
 
 export default function gifReducer(state = initState, action) {
@@ -28,7 +29,8 @@ export default function gifReducer(state = initState, action) {
     case RECEIVE_GIFS:
         console.log('RECEIVE_GIFS');
         // concats new fetched gifs with previous gifs
-        const gifsArray = state.gifs  
+        // only if infinite scroll is on, else paginate to new page
+        const gifsArray = (state.gifs && state.infiniteScroll)  
           ? concatGifs(state.gifs, action.payload.data) 
           : action.payload.data
     	newState = Object.assign({}, state, {
@@ -43,7 +45,8 @@ export default function gifReducer(state = initState, action) {
     	console.log('GET_MORE_GIFS');
     	newState = Object.assign({}, state, {
           limit: action.payload,
-          gifsLoading: true
+          gifsLoading: true,
+          infiniteScroll: !action.pagination   
       });
       break;
 
@@ -54,6 +57,11 @@ export default function gifReducer(state = initState, action) {
       break;
 
     case GET_PAGE:
+      console.log('GET_PAGE');
+      newState = Object.assign({}, state, {
+          gifsLoading: true,
+          infiniteScroll: !action.pagination   
+      });
       break;
 
     default:

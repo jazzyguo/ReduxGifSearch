@@ -62,13 +62,16 @@ export function getGifs(query = "", limit = defaultLimit){
 }
 
 /* fetches additional gifs
+ * @ {url} string - current url to use
+ * @ {limit} int - amount of more gifts to fetch
  */
 export function getMoreGifs(url, limit = defaultLimit){
 
   return function action(dispatch) {
     dispatch({ 
       type: 'GET_MORE_GIFS', 
-      payload: limit 
+      payload: limit,
+      pagination: false
     })
     const request = axios({
       method: 'GET',
@@ -83,9 +86,26 @@ export function getMoreGifs(url, limit = defaultLimit){
 
 /* used in conjunction with switch page from pagination reducer
  * @param {pageNum} int - fetches this page
+ * @param {perPage} int - number of items to fetch
  */
-export function getPage(pageNum, limit = defaultLimit) {
+export function getPage(url, pageNum, perPage) {
 
+  const offset = (pageNum - 1) * perPage;
+
+  return function action(dispatch) {
+    dispatch({ 
+      type: 'GET_MORE_GIFS', 
+      pagination: true
+    })
+    const request = axios({
+      method: 'GET',
+      // sets the offset for additional gif fetches
+      url: `${url}${defaultLimit}${apiOffset}${offset}`
+    });
+    return request.then(
+      response => dispatch(receiveGIFS(response))
+    );
+  }
 }
 
 /* resets gifs - used for pagination toggle

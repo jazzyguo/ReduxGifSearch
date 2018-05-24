@@ -1,7 +1,7 @@
 import { TOGGLE_PAGINATION, GO_TO_PAGE } from '../actions/actionTypes';
 
 const initState =  {
-  pagination: true,
+  pagination: false,
   perPage: 24,
   currPage: 0
 };
