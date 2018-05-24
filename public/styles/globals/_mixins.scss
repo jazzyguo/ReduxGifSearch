@@ -32,3 +32,10 @@
         @return map-get($colors, $color);
     }
 }
+@mixin hover-supported {
+    @media (pointer: fine) {
+        &:hover {
+            @content;
+        }
+    }
+}

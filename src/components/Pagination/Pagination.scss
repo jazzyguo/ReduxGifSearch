@@ -39,7 +39,7 @@
     }
     &__item {
         cursor: pointer;
-        &:hover {
+        @include hover-supported() {
             color: color(secondary);
         }
         &--selected {
@@ -48,7 +48,7 @@
     }
     &__next, &__prev {
         cursor: pointer;
-        &:hover {
+        @include hover-supported() {
             color: color(secondary);
         }
     }
