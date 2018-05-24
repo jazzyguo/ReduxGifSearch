@@ -33,15 +33,16 @@ class GifItem extends PureComponent {
 		window.removeEventListener('scroll', this._checkVisible);
 	}
 
-	 componentWillReceiveProps(nextProps) {
-    	// this is used to render new gifs fetched from pagination
+	componentWillReceiveProps(nextProps) {
+		// this is used to render new gifs fetched from pagination
 		this.url = nextProps.gif.images.downsized.url;
-    	this.setState({
-    		visible: false
-    	}, () => {
-    		setTimeout(() => { this.setState({visible: true})}, 1000)
-    	});
-  	}
+		this.setState({
+			visible: false
+		}, () => {
+			setTimeout(() => { this.setState({visible: true})}, 1000)
+		});
+	}
+	
 	// checks if this element is outside the viewport - sets to loading img if it is
 	_checkVisible() {
   		const rect = this.item.getBoundingClientRect();
