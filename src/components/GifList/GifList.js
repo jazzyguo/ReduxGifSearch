@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getGifs, getMoreGifs } from '../../actions/actions';
@@ -59,6 +60,14 @@ class GifList extends PureComponent {
     })
   }
 
+  /* TO-DO Shows a random gif from the search 'no results found'
+   */
+  _renderNoResults() {
+    return (
+      <div>No Results Found</div>
+    )
+  }
+
   _renderLoader(type) {
     return (
       <div className={`gif-list__loader${type}`}>
@@ -86,7 +95,7 @@ class GifList extends PureComponent {
           {gifsLoaded ?   
             (gifs.length === 0) 
             ?	<div className="gif-list__no-data">
-                No Results Found
+                { this._renderNoResults() }
               </div>
             :   
             <ul className="gif-list__list">

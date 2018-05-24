@@ -1,6 +1,13 @@
 @import '../../../public/styles/global-styles';
 .pagination {
+    position: fixed;
+    padding: 5px 0 2.5px;
+    bottom: 0;
+    left: 0;
+    right: 0;
     text-align: center;
+    background-color: rgba(0, 0, 0, .6);
+    color: #FFF;
     &__toggle {
         display: flex;
         position: fixed;
@@ -21,9 +28,14 @@
                 height: 40px;
             }
         }
+        &--on {
+            svg {
+                fill: red;
+            }
+        }
     }
     span {
-        margin: 0 15px;
+        margin: 0 10px;
     }
     &__item {
         cursor: pointer;
@@ -34,7 +46,10 @@
             color: color(secondary);
         }
     }
-    &__next,&__prev {
+    &__next, &__prev {
         cursor: pointer;
+        &:hover {
+            color: color(secondary);
+        }
     }
 }
